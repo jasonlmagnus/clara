@@ -1,20 +1,40 @@
-import type { Metadata } from 'next'
-import './globals.css'
+import type { Metadata } from "next";
+import { Montserrat, Merriweather } from "next/font/google";
+import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const fontSans = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const fontSerif = Merriweather({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  weight: "400",
+});
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.dev',
-}
+  title: "Magnus Consulting",
+  description: "B2B Growth Consultancy",
+};
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable,
+          fontSerif.variable
+        )}
+      >
+        {children}
+      </body>
     </html>
-  )
+  );
 }
