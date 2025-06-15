@@ -21,7 +21,7 @@ export async function GET() {
           status: "Complete", // Placeholder
           generated: reportData.created_at,
           dealsAnalyzed: 1, // Placeholder
-          insights: reportData.interview_structure?.flatMap((s:any) => s.questions).filter((q:any) => q.answer).length || 0,
+          insights: reportData.interview_structure?.flatMap((s:any) => s.questions || []).filter((q:any) => q && q.answer).length || 0,
         });
       }
     }

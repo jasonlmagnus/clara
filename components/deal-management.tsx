@@ -107,14 +107,157 @@ export default function DealManagement() {
   });
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Deal Management</CardTitle>
-        <CardDescription>Coming soon...</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <p>This is where the deal management content will go.</p>
-      </CardContent>
-    </Card>
+    <div className="space-y-8">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Deal Management</h1>
+          <p className="text-muted-foreground">
+            Track and manage closed-lost deals and their analysis status
+          </p>
+        </div>
+        <Button>Import from CRM</Button>
+      </div>
+
+      {/* Summary Cards */}
+      <div className="grid gap-4 md:grid-cols-4">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Deals</CardTitle>
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{deals.length}</div>
+            <p className="text-xs text-muted-foreground">This quarter</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Value</CardTitle>
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">$459.5K</div>
+            <p className="text-xs text-muted-foreground">Lost opportunities</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Completed</CardTitle>
+            <Calendar className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">2</div>
+            <p className="text-xs text-muted-foreground">Analysis complete</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Pending</CardTitle>
+            <Calendar className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">2</div>
+            <p className="text-xs text-muted-foreground">Awaiting action</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Filters and Search */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Deal Pipeline</CardTitle>
+          <CardDescription>
+            View and manage all closed-lost deals in the analysis pipeline
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex gap-4 mb-6">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search deals..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[200px]">
+                <Filter className="h-4 w-4 mr-2" />
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Statuses</SelectItem>
+                <SelectItem value="Pending Interview">
+                  Pending Interview
+                </SelectItem>
+                <SelectItem value="Interview Completed">
+                  Interview Completed
+                </SelectItem>
+                <SelectItem value="Analysis In Progress">
+                  Analysis In Progress
+                </SelectItem>
+                <SelectItem value="Report Generated">
+                  Report Generated
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Deal ID</TableHead>
+                <TableHead>Company</TableHead>
+                <TableHead>Value</TableHead>
+                <TableHead>Account Lead</TableHead>
+                <TableHead>Competitor</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Interview Date</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filteredDeals.map((deal) => (
+                <TableRow key={deal.id}>
+                  <TableCell className="font-medium">{deal.id}</TableCell>
+                  <TableCell>
+                    <div>
+                      <div className="font-medium">{deal.company}</div>
+                      <div className="text-sm text-muted-foreground">
+                        {deal.industry}
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell>{deal.value}</TableCell>
+                  <TableCell>{deal.accountLead}</TableCell>
+                  <TableCell>{deal.competitor}</TableCell>
+                  <TableCell>
+                    <Badge className={getStatusColor(deal.status)}>
+                      {deal.status}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    {deal.interviewDate
+                      ? new Date(deal.interviewDate).toLocaleDateString()
+                      : "Not scheduled"}
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex gap-2">
+                      <Button variant="ghost" size="sm">
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                      <Button variant="ghost" size="sm">
+                        <Download className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
