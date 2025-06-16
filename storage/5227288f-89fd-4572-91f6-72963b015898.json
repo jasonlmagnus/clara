@@ -1,0 +1,152 @@
+{
+  "project_name": "CLARA",
+  "description": "CLARA aims to uncover the underlying reasons why potential clients chose competitors or paused their work, gathering insights directly from clients to identify gaps in a value proposition, improve commercial strategies, pinpoint product strengths/weaknesses, pricing gaps, and service and sales deficiencies. By systematically gathering and analyzing feedback, CLARA can enhance strategies, increase win rates, and better serve the market [1, 2].",
+  "interview_details": {
+    "purpose": "The purpose is to improve future engagements and the client's feedback is greatly valued [3].",
+    "format": "Recorded 30-minute interview via MS Teams [3, 4].",
+    "recording_policy": "The interview will be recorded for transcript use only, and the recording will be deleted once the transcript is downloaded [3].",
+    "confidentiality": "Confirm the confidentiality of the discussion [3]."
+  },
+  "interview_structure": [
+    {
+      "section_title": "Opening",
+      "duration": "5 minutes",
+      "points": [
+        "Thank the client for their time and confirm the confidentiality of the discussion [3].",
+        "Emphasize that the purpose is to improve future engagements and that their feedback is greatly valued [3].",
+        "Briefly recap the opportunity, including the solution offered, timeline, and key decision points [3]."
+      ]
+    },
+    {
+      "section_title": "Understanding the Decision",
+      "duration": "10-15 minutes",
+      "questions": [
+        {
+          "number": 1,
+          "text": "Could you share the top factors influencing your decision?",
+          "answer": "The top factors were implementation confidence and prior sector experience, with a focus on relevant case studies and the delivery lead's industry experience.",
+          "evidence": "Well, the main factors were really around implementation confidence and prior sector experience. The chosen provider had more relevant case studies in our industry, and their delivery lead had deep retail experience which made us feel more assured about the project.",
+          "sources": [
+            3,
+            5
+          ]
+        },
+        {
+          "number": 2,
+          "text": "How did our proposal compare to the chosen provider in terms of:",
+          "sub_points": [
+            "Pricing",
+            "Service capability",
+            "Product fit/alignment with your specific needs"
+          ],
+          "note": "Pricing: Neutral, Service capability: Negative, Product fit: Positive",
+          "answer": "Pricing was neutral with appreciated flexible payment terms. Service capability was less compelling due to the competitor's industry experience. Product fit was positive with a modern and adaptable interface.",
+          "evidence": "In terms of pricing, it was pretty neutral overall. Both proposals were similar in cost, though yours offered more flexible payment terms which we appreciated. For service capability, it was slightly less compelling - the other provider had a named delivery lead with experience that matched our industry which tipped the balance. But in terms of product fit, it was actually positive. Your product felt more modern and adaptable, and we were particularly impressed with the user interface.",
+          "sources": [
+            5,
+            6
+          ]
+        },
+        {
+          "number": 3,
+          "text": "Were there any specific gaps or areas where our offering didn't meet your expectations?",
+          "answer": "Gaps included integration issues with payroll systems and uncertainty about post-implementation support.",
+          "evidence": "Integration with our payroll systems was a concern as yours would have required custom work. We were also unsure about the level of post-implementation support compared to the competitor.",
+          "sources": [
+            5,
+            6
+          ]
+        },
+        {
+          "number": 4,
+          "text": "Without naming them, what aspects of the chosen provider's offering stood out to your team?",
+          "answer": null,
+          "evidence": null,
+          "sources": [
+            5
+          ]
+        },
+        {
+          "number": 5,
+          "text": "Did the competitor offer anything innovative or particularly compelling that tipped the scales?",
+          "answer": null,
+          "evidence": null,
+          "sources": [
+            6,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "section_title": "Relationship and Engagement",
+      "duration": "10-15 minutes",
+      "questions": [
+        {
+          "number": 6,
+          "text": "How would you describe your experience working with our team?",
+          "sub_points": [
+            "Communication",
+            "Responsiveness",
+            "Understanding of your needs"
+          ],
+          "answer": null,
+          "evidence": null,
+          "sources": [
+            7,
+            8
+          ]
+        },
+        {
+          "number": 7,
+          "text": "Were there moments in the process where our approach stood out, either positively or negatively?",
+          "answer": null,
+          "evidence": null,
+          "sources": [
+            8
+          ]
+        },
+        {
+          "number": 8,
+          "text": "How would you describe the chemistry and collaboration between your team and ours?",
+          "answer": null,
+          "evidence": null,
+          "sources": [
+            7
+          ]
+        },
+        {
+          "number": 9,
+          "text": "Did any specific interactions, meetings, or presentations stand out positively or negatively?",
+          "answer": null,
+          "evidence": null,
+          "sources": [
+            9
+          ]
+        },
+        {
+          "number": 10,
+          "text": "Despite this decision, do you see potential opportunities for us to work together in the future?",
+          "answer": null,
+          "evidence": null,
+          "sources": [
+            8,
+            9
+          ]
+        },
+        {
+          "number": 11,
+          "text": "What would you need to see from us to feel more confident in choosing us for a future project?",
+          "answer": null,
+          "evidence": null,
+          "sources": [
+            9
+          ]
+        }
+      ]
+    }
+  ],
+  "report_id": "5227288f-89fd-4572-91f6-72963b015898",
+  "original_filename": "interview-20250613_141924-Meeting Recording.mp4",
+  "created_at": "2025-06-16T06:37:32.290Z"
+}

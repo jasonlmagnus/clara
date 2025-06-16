@@ -1,0 +1,152 @@
+{
+  "project_name": "CLARA",
+  "description": "CLARA aims to uncover the underlying reasons why potential clients chose competitors or paused their work, gathering insights directly from clients to identify gaps in a value proposition, improve commercial strategies, pinpoint product strengths/weaknesses, pricing gaps, and service and sales deficiencies. By systematically gathering and analyzing feedback, CLARA can enhance strategies, increase win rates, and better serve the market [1, 2].",
+  "interview_details": {
+    "purpose": "The purpose is to improve future engagements and the client's feedback is greatly valued [3].",
+    "format": "Recorded 30-minute interview via MS Teams [3, 4].",
+    "recording_policy": "The interview will be recorded for transcript use only, and the recording will be deleted once the transcript is downloaded [3].",
+    "confidentiality": "Confirm the confidentiality of the discussion [3]."
+  },
+  "interview_structure": [
+    {
+      "section_title": "Opening",
+      "duration": "5 minutes",
+      "points": [
+        "Thank the client for their time and confirm the confidentiality of the discussion [3].",
+        "Emphasize that the purpose is to improve future engagements and that their feedback is greatly valued [3].",
+        "Briefly recap the opportunity, including the solution offered, timeline, and key decision points [3]."
+      ]
+    },
+    {
+      "section_title": "Understanding the Decision",
+      "duration": "10-15 minutes",
+      "questions": [
+        {
+          "number": 1,
+          "text": "Could you share the top factors influencing your decision?",
+          "sources": [
+            3,
+            5
+          ],
+          "answer": null,
+          "evidence": null
+        },
+        {
+          "number": 2,
+          "text": "How did our proposal compare to the chosen provider in terms of:",
+          "sub_points": [
+            "Pricing",
+            "Service capability",
+            "Product fit/alignment with your specific needs"
+          ],
+          "note": "[Positive/Neutral/Negative]",
+          "sources": [
+            5,
+            6
+          ],
+          "answer": null,
+          "evidence": null
+        },
+        {
+          "number": 3,
+          "text": "Were there any specific gaps or areas where our offering didn't meet your expectations?",
+          "sources": [
+            5,
+            6
+          ],
+          "answer": null,
+          "evidence": null
+        },
+        {
+          "number": 4,
+          "text": "Without naming them, what aspects of the chosen provider's offering stood out to your team?",
+          "sources": [
+            5
+          ],
+          "answer": null,
+          "evidence": null
+        },
+        {
+          "number": 5,
+          "text": "Did the competitor offer anything innovative or particularly compelling that tipped the scales?",
+          "sources": [
+            6,
+            7
+          ],
+          "answer": null,
+          "evidence": null
+        }
+      ]
+    },
+    {
+      "section_title": "Relationship and Engagement",
+      "duration": "10-15 minutes",
+      "questions": [
+        {
+          "number": 6,
+          "text": "How would you describe your experience working with our team?",
+          "sub_points": [
+            "Communication",
+            "Responsiveness",
+            "Understanding of your needs"
+          ],
+          "sources": [
+            7,
+            8
+          ],
+          "answer": null,
+          "evidence": null
+        },
+        {
+          "number": 7,
+          "text": "Were there moments in the process where our approach stood out, either positively or negatively?",
+          "sources": [
+            8
+          ],
+          "answer": null,
+          "evidence": null
+        },
+        {
+          "number": 8,
+          "text": "How would you describe the chemistry and collaboration between your team and ours?",
+          "sources": [
+            7
+          ],
+          "answer": null,
+          "evidence": null
+        },
+        {
+          "number": 9,
+          "text": "Did any specific interactions, meetings, or presentations stand out positively or negatively?",
+          "sources": [
+            9
+          ],
+          "answer": null,
+          "evidence": null
+        },
+        {
+          "number": 10,
+          "text": "Despite this decision, do you see potential opportunities for us to work together in the future?",
+          "sources": [
+            8,
+            9
+          ],
+          "answer": null,
+          "evidence": null
+        },
+        {
+          "number": 11,
+          "text": "What would you need to see from us to feel more confident in choosing us for a future project?",
+          "sources": [
+            9
+          ],
+          "answer": null,
+          "evidence": null
+        }
+      ]
+    }
+  ],
+  "report_id": "93819329-1956-4b3e-b469-0295f3df09ee",
+  "original_filename": "interview-20250613_141924-Meeting Recording.mp4",
+  "created_at": "2025-06-15T10:56:43.519Z"
+}

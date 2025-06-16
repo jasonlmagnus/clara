@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -27,55 +27,138 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
   FileText,
   Download,
   CalendarIcon,
   BarChart3,
   Users,
+  Loader2,
+  X,
 } from "lucide-react";
 import { format } from "date-fns";
 
+interface Report {
+  report_id: string;
+  title: string;
+  type: string;
+  status: string;
+  generated: string;
+  dealsAnalyzed: number;
+  insights: number;
+}
+
+interface DetailedReport {
+  report_id: string;
+  project_name: string;
+  description: string;
+  interview_structure: Array<{
+    section_title: string;
+    duration?: string;
+    points?: string[];
+    questions?: Array<{
+      number: number;
+      text: string;
+      answer?: string;
+      evidence?: string;
+      sub_points?: string[];
+      note?: string;
+    }>;
+  }>;
+  original_filename: string;
+  created_at: string;
+}
+
 export default function ReportsView() {
   const [date, setDate] = useState<Date>();
+  const [reports, setReports] = useState<Report[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedReport, setSelectedReport] = useState<DetailedReport | null>(
+    null
+  );
+  const [isLoadingReport, setIsLoadingReport] = useState(false);
+  const [transcript, setTranscript] = useState<string | null>(null);
+  const [isLoadingTranscript, setIsLoadingTranscript] = useState(false);
 
-  const reports = [
-    {
-      id: "RPT-001",
-      title: "Q4 2024 Closed-Lost Analysis",
-      type: "Quarterly Report",
-      generatedDate: "2024-01-15",
-      status: "Complete",
-      deals: 23,
-      insights: 15,
-    },
-    {
-      id: "RPT-002",
-      title: "TechCorp Solutions - Individual Analysis",
-      type: "Client Report",
-      generatedDate: "2024-01-14",
-      status: "Complete",
-      deals: 1,
-      insights: 8,
-    },
-    {
-      id: "RPT-003",
-      title: "Competitor A Trend Analysis",
-      type: "Competitive Report",
-      generatedDate: "2024-01-12",
-      status: "Complete",
-      deals: 12,
-      insights: 6,
-    },
-    {
-      id: "RPT-004",
-      title: "Pricing Impact Assessment",
-      type: "Custom Report",
-      generatedDate: "2024-01-10",
-      status: "Complete",
-      deals: 34,
-      insights: 12,
-    },
-  ];
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch("/api/reports");
+        if (!response.ok) {
+          throw new Error("Failed to fetch reports");
+        }
+        const data = await response.json();
+        setReports(data);
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching reports:", err);
+        setError(err instanceof Error ? err.message : "Failed to load reports");
+        setReports([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchReports();
+  }, []);
+
+  const fetchReportDetails = async (reportId: string) => {
+    try {
+      setIsLoadingReport(true);
+      const response = await fetch(`/api/reports/${reportId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch report details");
+      }
+      const data = await response.json();
+      setSelectedReport(data);
+    } catch (err) {
+      console.error("Error fetching report details:", err);
+    } finally {
+      setIsLoadingReport(false);
+    }
+  };
+
+  const fetchTranscript = async (reportId: string) => {
+    try {
+      setIsLoadingTranscript(true);
+      const response = await fetch(`/api/reports/${reportId}/transcript`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch transcript");
+      }
+      const data = await response.json();
+      setTranscript(data.transcript);
+    } catch (err) {
+      console.error("Error fetching transcript:", err);
+      setTranscript("Transcript not available");
+    } finally {
+      setIsLoadingTranscript(false);
+    }
+  };
+
+  const downloadReport = (report: DetailedReport) => {
+    const dataStr = JSON.stringify(report, null, 2);
+    const dataUri =
+      "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
+    const exportFileDefaultName = `${report.original_filename.replace(
+      /\.[^/.]+$/,
+      ""
+    )}_analysis.json`;
+
+    const linkElement = document.createElement("a");
+    linkElement.setAttribute("href", dataUri);
+    linkElement.setAttribute("download", exportFileDefaultName);
+    linkElement.click();
+  };
 
   return (
     <div className="space-y-8">
@@ -249,36 +332,284 @@ export default function ReportsView() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {reports.map((report) => (
-                  <div
-                    key={report.id}
-                    className="flex items-center justify-between p-4 border rounded-lg"
-                  >
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h4 className="font-medium">{report.title}</h4>
-                        <Badge variant="outline">{report.type}</Badge>
-                        <Badge variant="default">{report.status}</Badge>
-                      </div>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                        <span>
-                          Generated:{" "}
-                          {new Date(report.generatedDate).toLocaleDateString()}
-                        </span>
-                        <span>{report.deals} deals analyzed</span>
-                        <span>{report.insights} insights</span>
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button variant="ghost" size="sm">
-                        View
-                      </Button>
-                      <Button variant="ghost" size="sm">
-                        <Download className="h-4 w-4" />
-                      </Button>
-                    </div>
+                {isLoading ? (
+                  <div className="text-center py-8">
+                    <p className="text-muted-foreground">Loading reports...</p>
                   </div>
-                ))}
+                ) : error ? (
+                  <div className="text-center py-8">
+                    <p className="text-red-600">Error: {error}</p>
+                  </div>
+                ) : reports.length === 0 ? (
+                  <div className="text-center py-8">
+                    <p className="text-muted-foreground">
+                      No reports found. Upload an audio file to generate your
+                      first report!
+                    </p>
+                  </div>
+                ) : (
+                  reports.map((report) => (
+                    <div
+                      key={report.report_id}
+                      className="flex items-center justify-between p-4 border rounded-lg"
+                    >
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <h4 className="font-medium">{report.title}</h4>
+                          <Badge variant="outline">{report.type}</Badge>
+                          <Badge variant="default">{report.status}</Badge>
+                        </div>
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                          <span>
+                            Generated:{" "}
+                            {new Date(report.generated).toLocaleDateString()}
+                          </span>
+                          <span>{report.dealsAnalyzed} deals analyzed</span>
+                          <span>{report.insights} insights</span>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => {
+                                fetchReportDetails(report.report_id);
+                                setTranscript(null); // Reset transcript when opening new report
+                              }}
+                            >
+                              View
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="max-w-4xl max-h-[80vh]">
+                            <DialogHeader>
+                              <DialogTitle>
+                                {selectedReport?.project_name ||
+                                  "Report Details"}
+                              </DialogTitle>
+                              <DialogDescription>
+                                {selectedReport?.original_filename} • Generated{" "}
+                                {selectedReport &&
+                                  new Date(
+                                    selectedReport.created_at
+                                  ).toLocaleDateString()}
+                              </DialogDescription>
+                            </DialogHeader>
+
+                            {isLoadingReport ? (
+                              <div className="flex items-center justify-center py-8">
+                                <Loader2 className="h-6 w-6 animate-spin" />
+                                <span className="ml-2">Loading report...</span>
+                              </div>
+                            ) : selectedReport ? (
+                              <div className="space-y-4">
+                                <div className="flex justify-end">
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() =>
+                                      downloadReport(selectedReport)
+                                    }
+                                    className="flex items-center gap-2"
+                                  >
+                                    <Download className="h-4 w-4" />
+                                    Download JSON
+                                  </Button>
+                                </div>
+
+                                <Tabs
+                                  defaultValue="analysis"
+                                  className="w-full"
+                                >
+                                  <TabsList className="grid w-full grid-cols-2">
+                                    <TabsTrigger value="analysis">
+                                      Analysis
+                                    </TabsTrigger>
+                                    <TabsTrigger
+                                      value="transcript"
+                                      onClick={() => {
+                                        if (selectedReport && !transcript) {
+                                          fetchTranscript(
+                                            selectedReport.report_id
+                                          );
+                                        }
+                                      }}
+                                    >
+                                      Transcript
+                                    </TabsTrigger>
+                                  </TabsList>
+
+                                  <TabsContent value="analysis">
+                                    <ScrollArea className="h-[60vh] pr-4">
+                                      <div className="space-y-6">
+                                        <div>
+                                          <h3 className="text-lg font-semibold mb-2">
+                                            Description
+                                          </h3>
+                                          <p className="text-sm text-muted-foreground leading-relaxed">
+                                            {selectedReport.description}
+                                          </p>
+                                        </div>
+
+                                        {selectedReport.interview_structure.map(
+                                          (section, sectionIndex) => (
+                                            <div
+                                              key={sectionIndex}
+                                              className="border rounded-lg p-4"
+                                            >
+                                              <div className="flex items-center justify-between mb-3">
+                                                <h4 className="text-md font-semibold">
+                                                  {section.section_title}
+                                                </h4>
+                                                {section.duration && (
+                                                  <Badge variant="outline">
+                                                    {section.duration}
+                                                  </Badge>
+                                                )}
+                                              </div>
+
+                                              {section.points && (
+                                                <div className="mb-4">
+                                                  <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                                                    {section.points.map(
+                                                      (point, pointIndex) => (
+                                                        <li key={pointIndex}>
+                                                          {point}
+                                                        </li>
+                                                      )
+                                                    )}
+                                                  </ul>
+                                                </div>
+                                              )}
+
+                                              {section.questions && (
+                                                <div className="space-y-4">
+                                                  {section.questions.map(
+                                                    (
+                                                      question,
+                                                      questionIndex
+                                                    ) => (
+                                                      <div
+                                                        key={questionIndex}
+                                                        className="border-l-2 border-blue-200 pl-4"
+                                                      >
+                                                        <div className="flex items-start gap-2 mb-2">
+                                                          <Badge
+                                                            variant="secondary"
+                                                            className="text-xs"
+                                                          >
+                                                            Q{question.number}
+                                                          </Badge>
+                                                          <p className="text-sm font-medium flex-1">
+                                                            {question.text}
+                                                          </p>
+                                                        </div>
+
+                                                        {question.sub_points && (
+                                                          <ul className="list-disc list-inside ml-6 mb-2 text-xs text-muted-foreground">
+                                                            {question.sub_points.map(
+                                                              (
+                                                                subPoint,
+                                                                subIndex
+                                                              ) => (
+                                                                <li
+                                                                  key={subIndex}
+                                                                >
+                                                                  {subPoint}
+                                                                </li>
+                                                              )
+                                                            )}
+                                                          </ul>
+                                                        )}
+
+                                                        {question.note && (
+                                                          <p className="text-xs text-blue-600 mb-2 ml-6">
+                                                            Note:{" "}
+                                                            {question.note}
+                                                          </p>
+                                                        )}
+
+                                                        {question.answer && (
+                                                          <div className="ml-6 mt-2">
+                                                            <p className="text-xs font-medium text-green-700 mb-1">
+                                                              Answer:
+                                                            </p>
+                                                            <p className="text-sm text-gray-700 leading-relaxed">
+                                                              {question.answer}
+                                                            </p>
+                                                          </div>
+                                                        )}
+
+                                                        {question.evidence && (
+                                                          <div className="ml-6 mt-2">
+                                                            <p className="text-xs font-medium text-blue-700 mb-1">
+                                                              Evidence:
+                                                            </p>
+                                                            <p className="text-sm text-gray-600 italic leading-relaxed">
+                                                              "
+                                                              {
+                                                                question.evidence
+                                                              }
+                                                              "
+                                                            </p>
+                                                          </div>
+                                                        )}
+                                                      </div>
+                                                    )
+                                                  )}
+                                                </div>
+                                              )}
+                                            </div>
+                                          )
+                                        )}
+                                      </div>
+                                    </ScrollArea>
+                                  </TabsContent>
+
+                                  <TabsContent value="transcript">
+                                    <ScrollArea className="h-[60vh] pr-4">
+                                      {isLoadingTranscript ? (
+                                        <div className="flex items-center justify-center py-8">
+                                          <Loader2 className="h-6 w-6 animate-spin" />
+                                          <span className="ml-2">
+                                            Loading transcript...
+                                          </span>
+                                        </div>
+                                      ) : transcript ? (
+                                        <div className="space-y-4">
+                                          <pre className="whitespace-pre-wrap text-sm leading-relaxed font-mono bg-gray-50 p-4 rounded-lg">
+                                            {transcript}
+                                          </pre>
+                                        </div>
+                                      ) : (
+                                        <div className="text-center py-8">
+                                          <p className="text-muted-foreground">
+                                            Click to load transcript
+                                          </p>
+                                        </div>
+                                      )}
+                                    </ScrollArea>
+                                  </TabsContent>
+                                </Tabs>
+                              </div>
+                            ) : (
+                              <div className="text-center py-8">
+                                <p className="text-muted-foreground">
+                                  No report data available
+                                </p>
+                              </div>
+                            )}
+                          </DialogContent>
+                        </Dialog>
+
+                        <Button variant="ghost" size="sm">
+                          <Download className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             </CardContent>
           </Card>

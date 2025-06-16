@@ -4,10 +4,10 @@ import path from "path";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { reportId: string } }
+  { params }: { params: Promise<{ reportId: string }> }
 ) {
   try {
-    const { reportId } = params;
+    const { reportId } = await params;
     
     if (!reportId) {
       return NextResponse.json(
