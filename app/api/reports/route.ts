@@ -25,11 +25,16 @@ async function findReports(directory: string): Promise<any[]> {
               allReports.push({
                 report_id: metadata.report_id,
                 title: `${metadata.company} – ${metadata.original_filename.replace(/\.(mp4|mp3|wav|m4a)$/i, '')}`,
+                client: metadata.company,
+                date: metadata.interviewDate || metadata.created_at,
                 type: "Individual Analysis", // Placeholder
                 status: "Complete", // Placeholder
                 generated: metadata.created_at,
                 dealsAnalyzed: 1, // Placeholder
-                insights: reportData.interview_structure?.flatMap((s:any) => s.questions || []).filter((q:any) => q && q.answer).length || 0,
+                insights:
+                  reportData.interview_structure
+                    ?.flatMap((s: any) => s.questions || [])
+                    .filter((q: any) => q && q.answer).length || 0,
               });
             }
           } catch (error) {
