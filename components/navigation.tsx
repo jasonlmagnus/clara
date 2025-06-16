@@ -86,11 +86,17 @@ export default function Navigation({
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Select value={selectedClient ?? undefined} onValueChange={setSelectedClient}>
+            <Select
+              value={selectedClient ?? "all"}
+              onValueChange={(v) =>
+                setSelectedClient(v === "all" ? null : v)
+              }
+            >
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select client" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="all">--View all--</SelectItem>
                 {clients.map((c) => (
                   <SelectItem key={c} value={c}>
                     {c}
