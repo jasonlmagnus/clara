@@ -43,12 +43,17 @@ import {
   Users,
   Loader2,
   X,
+  Search,
+  Filter,
+  ArrowUpDown,
 } from "lucide-react";
 import { format } from "date-fns";
 
 interface Report {
   report_id: string;
   title: string;
+  client: string;
+  date: string;
   type: string;
   status: string;
   generated: string;
@@ -88,6 +93,9 @@ export default function ReportsView() {
   const [isLoadingReport, setIsLoadingReport] = useState(false);
   const [transcript, setTranscript] = useState<string | null>(null);
   const [isLoadingTranscript, setIsLoadingTranscript] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [clientFilter, setClientFilter] = useState("all");
+  const [sortOrder, setSortOrder] = useState("desc");
 
   useEffect(() => {
     const fetchReports = async () => {
@@ -160,6 +168,23 @@ export default function ReportsView() {
     linkElement.click();
   };
 
+  const uniqueClients = Array.from(new Set(reports.map((r) => r.client)));
+
+  const filteredReports = reports
+    .filter((report) => {
+      const matchesSearch =
+        report.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        report.client.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesClient =
+        clientFilter === "all" || report.client === clientFilter;
+      return matchesSearch && matchesClient;
+    })
+    .sort((a, b) =>
+      sortOrder === "desc"
+        ? new Date(b.date).getTime() - new Date(a.date).getTime()
+        : new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
@@ -175,7 +200,7 @@ export default function ReportsView() {
         </Button>
       </div>
 
-      <Tabs defaultValue="generate" className="space-y-6">
+      <Tabs defaultValue="existing" className="space-y-6">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="existing">Reports</TabsTrigger>
           <TabsTrigger value="generate">Create Report</TabsTrigger>
@@ -331,6 +356,41 @@ export default function ReportsView() {
               </CardDescription>
             </CardHeader>
             <CardContent>
+              <div className="flex gap-4 mb-6">
+                <div className="flex-1 relative">
+                  <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search reports..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+                <Select value={clientFilter} onValueChange={setClientFilter}>
+                  <SelectTrigger className="w-[200px]">
+                    <Filter className="h-4 w-4 mr-2" />
+                    <SelectValue placeholder="Filter by client" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Clients</SelectItem>
+                    {uniqueClients.map((client) => (
+                      <SelectItem key={client} value={client}>
+                        {client}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Select value={sortOrder} onValueChange={setSortOrder}>
+                  <SelectTrigger className="w-[200px]">
+                    <ArrowUpDown className="h-4 w-4 mr-2" />
+                    <SelectValue placeholder="Sort by date" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="desc">Newest First</SelectItem>
+                    <SelectItem value="asc">Oldest First</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
               <div className="space-y-4">
                 {isLoading ? (
                   <div className="text-center py-8">
@@ -340,15 +400,14 @@ export default function ReportsView() {
                   <div className="text-center py-8">
                     <p className="text-red-600">Error: {error}</p>
                   </div>
-                ) : reports.length === 0 ? (
+                ) : filteredReports.length === 0 ? (
                   <div className="text-center py-8">
                     <p className="text-muted-foreground">
-                      No reports found. Upload an audio file to generate your
-                      first report!
+                      No reports match your criteria.
                     </p>
                   </div>
                 ) : (
-                  reports.map((report) => (
+                  filteredReports.map((report) => (
                     <div
                       key={report.report_id}
                       className="flex items-center justify-between p-4 border rounded-lg"
@@ -360,9 +419,9 @@ export default function ReportsView() {
                           <Badge variant="default">{report.status}</Badge>
                         </div>
                         <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                          <span>Client: {report.client}</span>
                           <span>
-                            Generated:{" "}
-                            {new Date(report.generated).toLocaleDateString()}
+                            Date: {new Date(report.date).toLocaleDateString()}
                           </span>
                           <span>{report.dealsAnalyzed} deals analyzed</span>
                           <span>{report.insights} insights</span>
