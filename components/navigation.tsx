@@ -27,10 +27,10 @@ export default function Navigation({
   const navItems = [
     { id: "dashboard", label: "Dashboard", icon: Home },
     { id: "input", label: "Data Input", icon: Upload },
-    { id: "deals", label: "Deal Management", icon: Briefcase },
-    { id: "analysis", label: "Analysis", icon: BarChart2 },
     { id: "reports", label: "Reports", icon: FileText },
-    { id: "template", label: "Interview Template", icon: Mail },
+    { id: "analysis", label: "Analysis", icon: BarChart2 },
+    { id: "deals", label: "Deal Management", icon: Briefcase },
+    { id: "template", label: "Templates", icon: Mail },
   ];
 
   return (
