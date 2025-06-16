@@ -58,14 +58,44 @@ export default function DataInput() {
   const [error, setError] = useState<string | null>(null);
   const [analysisResult, setAnalysisResult] = useState<any | null>(null);
 
+  const [metadata, setMetadata] = useState({
+    company: "",
+    dealValue: "",
+    accountLead: "",
+    interviewDate: "",
+    competitor: "",
+    industry: "",
+    notes: "",
+  });
+  const [metadataSaved, setMetadataSaved] = useState(false);
+  const [activeTab, setActiveTab] = useState("metadata");
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFile(e.target.files[0]);
     }
   };
 
+  const handleMetadataChange = (field: string, value: string) => {
+    setMetadata((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const saveMetadata = () => {
+    if (metadata.company && metadata.accountLead && metadata.interviewDate) {
+      setMetadataSaved(true);
+      setActiveTab("transcript");
+    } else {
+      setError("Please fill in Company, Account Lead and Interview Date.");
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!metadataSaved) {
+      setError("Please save metadata before analyzing.");
+      setActiveTab("metadata");
+      return;
+    }
     if (!file) {
       setError("Please select a file to analyze.");
       return;
@@ -78,6 +108,7 @@ export default function DataInput() {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("questions", JSON.stringify(questions));
+    formData.append("metadata", JSON.stringify(metadata));
 
     try {
       const response = await fetch("/api/transcribe", {
@@ -145,12 +176,24 @@ export default function DataInput() {
         </p>
       </div>
 
-      <Tabs defaultValue="transcript" className="space-y-6">
+      <Tabs
+        value={activeTab}
+        onValueChange={(val) => {
+          if (!metadataSaved && val !== "metadata") {
+            setError("Please save metadata before proceeding.");
+            setActiveTab("metadata");
+          } else {
+            setError(null);
+            setActiveTab(val);
+          }
+        }}
+        className="space-y-6"
+      >
         <TabsList className="grid w-full grid-cols-4">
+          <TabsTrigger value="metadata">Metadata</TabsTrigger>
           <TabsTrigger value="transcript">Transcript</TabsTrigger>
           <TabsTrigger value="recording">Recording</TabsTrigger>
           <TabsTrigger value="questions">Questions</TabsTrigger>
-          <TabsTrigger value="metadata">Metadata</TabsTrigger>
         </TabsList>
 
         <TabsContent value="transcript" className="space-y-6">
@@ -443,26 +486,54 @@ export default function DataInput() {
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="company">Company Name</Label>
-                  <Input id="company" placeholder="Enter company name" />
+                  <Input
+                    id="company"
+                    placeholder="Enter company name"
+                    value={metadata.company}
+                    onChange={(e) =>
+                      handleMetadataChange("company", e.target.value)
+                    }
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="deal-value">Deal Value</Label>
-                  <Input id="deal-value" placeholder="$0.00" />
+                  <Input
+                    id="deal-value"
+                    placeholder="$0.00"
+                    value={metadata.dealValue}
+                    onChange={(e) =>
+                      handleMetadataChange("dealValue", e.target.value)
+                    }
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="account-lead">Account Lead</Label>
                   <Input
                     id="account-lead"
                     placeholder="Enter account lead name"
+                    value={metadata.accountLead}
+                    onChange={(e) =>
+                      handleMetadataChange("accountLead", e.target.value)
+                    }
                   />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="interview-date">Interview Date</Label>
-                  <Input id="interview-date" type="date" />
+                  <Input
+                    id="interview-date"
+                    type="date"
+                    value={metadata.interviewDate}
+                    onChange={(e) =>
+                      handleMetadataChange("interviewDate", e.target.value)
+                    }
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="competitor">Primary Competitor</Label>
-                  <Select>
+                  <Select
+                    value={metadata.competitor}
+                    onValueChange={(v) => handleMetadataChange("competitor", v)}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select competitor" />
                     </SelectTrigger>
@@ -476,7 +547,10 @@ export default function DataInput() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="industry">Industry</Label>
-                  <Select>
+                  <Select
+                    value={metadata.industry}
+                    onValueChange={(v) => handleMetadataChange("industry", v)}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select industry" />
                     </SelectTrigger>
@@ -499,12 +573,16 @@ export default function DataInput() {
                   id="notes"
                   placeholder="Any additional context or notes about the opportunity..."
                   className="min-h-[100px]"
+                  value={metadata.notes}
+                  onChange={(e) => handleMetadataChange("notes", e.target.value)}
                 />
               </div>
 
-              <Button className="w-full">Save Metadata</Button>
-            </CardContent>
-          </Card>
+              <Button className="w-full" onClick={saveMetadata}>
+                Save Metadata
+              </Button>
+              </CardContent>
+            </Card>
         </TabsContent>
       </Tabs>
     </div>
