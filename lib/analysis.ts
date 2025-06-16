@@ -12,6 +12,7 @@ export interface ParsedReport {
   client: string
   competitor?: string
   pricingSentiment?: PricingSentiment
+  notes?: string
   timestamp: string
   qa: ParsedAnswer[]
 }
@@ -53,6 +54,7 @@ export async function parseReport(reportDir: string): Promise<ParsedReport | nul
       client: meta.company ?? '',
       competitor: meta.competitor,
       pricingSentiment,
+      notes: meta.notes,
       timestamp: meta.interviewDate ?? meta.created_at ?? '',
       qa,
     }
