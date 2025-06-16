@@ -48,6 +48,7 @@ import {
   ArrowUpDown,
 } from "lucide-react";
 import { format } from "date-fns";
+import { useClientStore } from "@/lib/client-store";
 
 interface Report {
   report_id: string;
@@ -96,12 +97,14 @@ export default function ReportsView() {
   const [searchTerm, setSearchTerm] = useState("");
   const [clientFilter, setClientFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState("desc");
+  const selectedClient = useClientStore((s) => s.selectedClient);
 
   useEffect(() => {
     const fetchReports = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch("/api/reports");
+        const url = selectedClient ? `/api/reports?client=${encodeURIComponent(selectedClient)}` : "/api/reports";
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error("Failed to fetch reports");
         }
@@ -118,7 +121,7 @@ export default function ReportsView() {
     };
 
     fetchReports();
-  }, []);
+  }, [selectedClient]);
 
   const fetchReportDetails = async (reportId: string) => {
     try {

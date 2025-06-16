@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Merriweather } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { ClientProvider } from "@/lib/client-store";
 
 const fontSans = Montserrat({
   subsets: ["latin"],
@@ -33,7 +34,7 @@ export default function RootLayout({
           fontSerif.variable
         )}
       >
-        {children}
+        <ClientProvider>{children}</ClientProvider>
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useClientStore } from "@/lib/client-store";
 import {
   Card,
   CardContent,
@@ -38,6 +39,7 @@ import {
 export default function DealManagement() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const selectedClient = useClientStore((s) => s.selectedClient);
 
   const deals = [
     {
@@ -103,7 +105,8 @@ export default function DealManagement() {
       deal.accountLead.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus =
       statusFilter === "all" || deal.status === statusFilter;
-    return matchesSearch && matchesStatus;
+    const matchesClient = !selectedClient || deal.company === selectedClient;
+    return matchesSearch && matchesStatus && matchesClient;
   });
 
   return (

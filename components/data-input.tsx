@@ -22,6 +22,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Upload, Loader2, CheckCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useClientStore } from "@/lib/client-store";
 
 export default function DataInput() {
   const [questions, setQuestions] = useState([
@@ -52,7 +53,9 @@ export default function DataInput() {
   const [analysisResult, setAnalysisResult] = useState<any | null>(null);
   const [transcript, setTranscript] = useState("");
   const [dragActive, setDragActive] = useState(false);
-  const [clients, setClients] = useState<string[]>([]);
+  const clients = useClientStore((s) => s.clients);
+  const selectedClient = useClientStore((s) => s.selectedClient);
+  const fetchClients = useClientStore((s) => s.fetchClients);
 
   const [metadata, setMetadata] = useState({
     company: "",
@@ -66,19 +69,14 @@ export default function DataInput() {
   const [activeTab, setActiveTab] = useState("metadata");
 
   useEffect(() => {
-    const fetchClients = async () => {
-      try {
-        const res = await fetch("/api/clients");
-        if (res.ok) {
-          const data = await res.json();
-          setClients(data);
-        }
-      } catch (err) {
-        console.error("Failed to fetch clients", err);
-      }
-    };
-    fetchClients();
-  }, []);
+    if (!clients.length) {
+      fetchClients();
+    }
+  }, [clients.length, fetchClients]);
+
+  useEffect(() => {
+    setMetadata((prev) => ({ ...prev, company: selectedClient || "" }));
+  }, [selectedClient]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {

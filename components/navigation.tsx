@@ -3,6 +3,15 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useEffect } from "react";
+import { useClientStore } from "@/lib/client-store";
+import {
   BarChart3,
   Upload,
   Users,
@@ -24,6 +33,14 @@ export default function Navigation({
   activeTab,
   setActiveTab,
 }: NavigationProps) {
+  const clients = useClientStore((s) => s.clients)
+  const selectedClient = useClientStore((s) => s.selectedClient)
+  const setSelectedClient = useClientStore((s) => s.setSelectedClient)
+  const fetchClients = useClientStore((s) => s.fetchClients)
+
+  useEffect(() => {
+    fetchClients()
+  }, [fetchClients])
   const navItems = [
     { id: "dashboard", label: "Dashboard", icon: Home },
     { id: "input", label: "Data Input", icon: Upload },
@@ -68,13 +85,27 @@ export default function Navigation({
               })}
             </div>
           </div>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-magnus-red hover:bg-magnus-red/10"
-          >
-            <Settings className="h-4 w-4" />
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={selectedClient ?? undefined} onValueChange={setSelectedClient}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Select client" />
+              </SelectTrigger>
+              <SelectContent>
+                {clients.map((c) => (
+                  <SelectItem key={c} value={c}>
+                    {c}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-magnus-red hover:bg-magnus-red/10"
+            >
+              <Settings className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </div>
     </nav>

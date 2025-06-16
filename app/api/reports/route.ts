@@ -26,6 +26,7 @@ async function findReports(directory: string): Promise<any[]> {
                 report_id: metadata.report_id,
                 title: `${metadata.company} – ${metadata.original_filename.replace(/\.(mp4|mp3|wav|m4a)$/i, '')}`,
                 client: metadata.company,
+                company: metadata.company,
                 date: metadata.interviewDate || metadata.created_at,
                 type: "Individual Analysis", // Placeholder
                 status: "Complete", // Placeholder
@@ -48,17 +49,20 @@ async function findReports(directory: string): Promise<any[]> {
   return allReports;
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     const storageDir = path.join(process.cwd(), 'storage');
     await fs.ensureDir(storageDir);
 
     const reports = await findReports(storageDir);
+    const url = new URL(request.url);
+    const client = url.searchParams.get('client');
+    const filtered = client ? reports.filter((r) => r.company === client) : reports;
 
     // Sort reports by creation date, newest first
-    reports.sort((a, b) => new Date(b.generated).getTime() - new Date(a.generated).getTime());
+    filtered.sort((a, b) => new Date(b.generated).getTime() - new Date(a.generated).getTime());
 
-    return NextResponse.json(reports);
+    return NextResponse.json(filtered);
   } catch (error) {
     console.error("Error fetching reports:", error);
     const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
