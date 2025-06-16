@@ -1,0 +1,121 @@
+{
+  "project_name": "CLARA",
+  "description": "CLARA aims to uncover the underlying reasons why potential clients chose competitors or paused their work, gathering insights directly from clients to identify gaps in a value proposition, improve commercial strategies, pinpoint product strengths/weaknesses, pricing gaps, and service and sales deficiencies. By systematically gathering and analyzing feedback, CLARA can enhance strategies, increase win rates, and better serve the market [1, 2].",
+  "interview_details": {
+    "purpose": "The purpose is to improve future engagements and the client's feedback is greatly valued [3].",
+    "format": "Recorded 30-minute interview via MS Teams [3, 4].",
+    "recording_policy": "The interview will be recorded for transcript use only, and the recording will be deleted once the transcript is downloaded [3].",
+    "confidentiality": "Confirm the confidentiality of the discussion [3]."
+  },
+  "interview_structure": [
+    {
+      "section_title": "Opening",
+      "duration": "5 minutes",
+      "points": [
+        "Thank the client for their time and confirm the confidentiality of the discussion [3].",
+        "Emphasize that the purpose is to improve future engagements and that their feedback is greatly valued [3].",
+        "Briefly recap the opportunity, including the solution offered, timeline, and key decision points [3]."
+      ]
+    },
+    {
+      "section_title": "Understanding the Decision",
+      "duration": "10-15 minutes",
+      "questions": [
+        {
+          "number": 1,
+          "text": "Could you share the top factors influencing your decision?",
+          "sources": [3, 5],
+          "answer": "The decisive factors were McKinsey's proven change management methodology, deeper manufacturing industry expertise, and their ability to handle the scale and complexity of our transformation.",
+          "evidence": "McKinsey had led similar transformations at three major manufacturing companies in our sector. Their change management approach was more comprehensive, and they had the resources to handle our 15,000-employee transformation across multiple sites."
+        },
+        {
+          "number": 2,
+          "text": "How did our proposal compare to the chosen provider in terms of:",
+          "sub_points": [
+            "Pricing",
+            "Service capability",
+            "Product fit/alignment with your specific needs"
+          ],
+          "note": "Pricing: Positive, Service capability: Negative, Product fit: Negative",
+          "sources": [5, 6],
+          "answer": "Pricing was more competitive from Korn Ferry, about 20% lower. However, McKinsey's service capability was superior for large-scale transformations, and their product fit was better aligned with manufacturing industry needs.",
+          "evidence": "Your pricing was significantly more attractive, which we appreciated. But McKinsey's manufacturing practice had deeper operational expertise and their transformation methodology had been proven at companies our size and complexity."
+        },
+        {
+          "number": 3,
+          "text": "Were there any specific gaps or areas where our offering didn't meet your expectations?",
+          "sources": [5, 6],
+          "answer": "The main gaps were in large-scale change management experience, manufacturing operations expertise, and the ability to manage complex multi-site transformations simultaneously.",
+          "evidence": "While your organizational strategy capabilities were strong, we needed someone who had managed transformations across multiple manufacturing sites with union workforces. The operational complexity required deeper manufacturing expertise."
+        },
+        {
+          "number": 4,
+          "text": "Without naming them, what aspects of the chosen provider's offering stood out to your team?",
+          "sources": [5],
+          "answer": "Their manufacturing operations expertise, proven large-scale transformation methodology, and ability to deploy teams across multiple sites simultaneously.",
+          "evidence": "They had a dedicated manufacturing practice with former plant managers and operations executives. Their transformation approach included detailed operational redesign, not just organizational structure changes."
+        },
+        {
+          "number": 5,
+          "text": "Did the competitor offer anything innovative or particularly compelling that tipped the scales?",
+          "sources": [6, 7],
+          "answer": "Yes, their digital transformation accelerator program that combined organizational change with Industry 4.0 implementation, creating synergies we couldn't achieve separately.",
+          "evidence": "The digital accelerator was brilliant - it integrated our organizational transformation with our Industry 4.0 initiatives. This created efficiencies and cost savings that made the higher price worthwhile."
+        }
+      ]
+    },
+    {
+      "section_title": "Relationship and Engagement",
+      "duration": "10-15 minutes",
+      "questions": [
+        {
+          "number": 6,
+          "text": "How would you describe your experience working with our team?",
+          "sub_points": [
+            "Communication",
+            "Responsiveness",
+            "Understanding of your needs"
+          ],
+          "sources": [7, 8],
+          "answer": "Excellent communication and responsiveness throughout. The team was professional and showed good understanding of organizational transformation principles, though manufacturing expertise could have been deeper.",
+          "evidence": "Jennifer and her team were outstanding to work with. Communication was clear, they were always available, and they understood our culture well. The gap was in deep manufacturing operations knowledge."
+        },
+        {
+          "number": 7,
+          "text": "Were there moments in the process where our approach stood out, either positively or negatively?",
+          "sources": [8],
+          "answer": "The organizational assessment was thorough and insightful. However, the operational redesign components felt less developed compared to the organizational structure work.",
+          "evidence": "Your organizational assessment was probably the most comprehensive we've seen. But when we got into manufacturing operations and workflow redesign, the recommendations felt more generic."
+        },
+        {
+          "number": 8,
+          "text": "How would you describe the chemistry and collaboration between your team and ours?",
+          "sources": [7],
+          "answer": "Excellent chemistry and collaboration. The team worked well with our executive team, plant managers, and union representatives.",
+          "evidence": "The collaboration was seamless across all levels of our organization. Your team showed respect for our manufacturing culture and built good relationships with our plant leadership."
+        },
+        {
+          "number": 9,
+          "text": "Did any specific interactions, meetings, or presentations stand out positively or negatively?",
+          "sources": [9],
+          "answer": "The executive alignment workshop was exceptional and helped build consensus. The plant visits showed genuine interest in understanding our operations.",
+          "evidence": "That executive workshop was incredibly valuable - it got our leadership team aligned on the transformation vision. Your team's willingness to visit our plants and understand our operations was impressive."
+        },
+        {
+          "number": 10,
+          "text": "Despite this decision, do you see potential opportunities for us to work together in the future?",
+          "sources": [8, 9],
+          "answer": "Absolutely. We have talent management and leadership development needs where your expertise would be perfect. The organizational strategy work was impressive.",
+          "evidence": "We're planning a major leadership development initiative next year, and your organizational strategy capabilities would be ideal for that. We'd definitely want to work with you on the right project."
+        },
+        {
+          "number": 11,
+          "text": "What would you need to see from us to feel more confident in choosing us for a future project?",
+          "sources": [9],
+          "answer": "Deeper manufacturing operations expertise, perhaps through strategic hires or partnerships, and proven experience with large-scale multi-site transformations.",
+          "evidence": "If you could add manufacturing operations experts to your team, or partner with firms that have that expertise, you'd be much more competitive for large manufacturing transformations."
+        }
+      ]
+    }
+  ]
+} 

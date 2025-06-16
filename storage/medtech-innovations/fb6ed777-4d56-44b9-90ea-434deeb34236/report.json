@@ -1,0 +1,121 @@
+{
+  "project_name": "CLARA",
+  "description": "CLARA aims to uncover the underlying reasons why potential clients chose competitors or paused their work, gathering insights directly from clients to identify gaps in a value proposition, improve commercial strategies, pinpoint product strengths/weaknesses, pricing gaps, and service and sales deficiencies. By systematically gathering and analyzing feedback, CLARA can enhance strategies, increase win rates, and better serve the market [1, 2].",
+  "interview_details": {
+    "purpose": "The purpose is to improve future engagements and the client's feedback is greatly valued [3].",
+    "format": "Recorded 30-minute interview via MS Teams [3, 4].",
+    "recording_policy": "The interview will be recorded for transcript use only, and the recording will be deleted once the transcript is downloaded [3].",
+    "confidentiality": "Confirm the confidentiality of the discussion [3]."
+  },
+  "interview_structure": [
+    {
+      "section_title": "Opening",
+      "duration": "5 minutes",
+      "points": [
+        "Thank the client for their time and confirm the confidentiality of the discussion [3].",
+        "Emphasize that the purpose is to improve future engagements and that their feedback is greatly valued [3].",
+        "Briefly recap the opportunity, including the solution offered, timeline, and key decision points [3]."
+      ]
+    },
+    {
+      "section_title": "Understanding the Decision",
+      "duration": "10-15 minutes",
+      "questions": [
+        {
+          "number": 1,
+          "text": "Could you share the top factors influencing your decision?",
+          "sources": [3, 5],
+          "answer": "The key factors were healthcare-specific leadership assessment tools, proven track record in digital health transformations, and specialized coaching methodologies for healthcare executives.",
+          "evidence": "Heidrick had developed proprietary assessment tools specifically for healthcare leaders, including clinical leadership competencies and regulatory awareness. Their track record with digital health companies was impressive, with case studies from three companies similar to ours."
+        },
+        {
+          "number": 2,
+          "text": "How did our proposal compare to the chosen provider in terms of:",
+          "sub_points": [
+            "Pricing",
+            "Service capability",
+            "Product fit/alignment with your specific needs"
+          ],
+          "note": "Pricing: Neutral, Service capability: Negative, Product fit: Negative",
+          "sources": [5, 6],
+          "answer": "Pricing was comparable between both providers. Service capability favored Heidrick due to their healthcare specialization. Product fit was better with Heidrick as their program was designed specifically for healthcare technology companies.",
+          "evidence": "Both proposals were within 5% of each other price-wise. However, Heidrick's healthcare practice had developed leadership frameworks specifically for medtech companies, including FDA regulatory leadership and clinical trial management competencies."
+        },
+        {
+          "number": 3,
+          "text": "Were there any specific gaps or areas where our offering didn't meet your expectations?",
+          "sources": [5, 6],
+          "answer": "The main gaps were lack of healthcare-specific content, limited understanding of regulatory leadership requirements, and absence of clinical leadership development components.",
+          "evidence": "Your program was excellent for general leadership development, but we needed content around FDA regulations, clinical trial leadership, and managing physician relationships. These are unique to our industry."
+        },
+        {
+          "number": 4,
+          "text": "Without naming them, what aspects of the chosen provider's offering stood out to your team?",
+          "sources": [5],
+          "answer": "Their healthcare-specific assessment tools, coaching from former healthcare executives, and a curriculum that included regulatory and clinical leadership modules.",
+          "evidence": "They offered coaching from former pharma and medtech CEOs, which was invaluable. Their assessment included clinical leadership scenarios and regulatory decision-making simulations that were directly relevant to our challenges."
+        },
+        {
+          "number": 5,
+          "text": "Did the competitor offer anything innovative or particularly compelling that tipped the scales?",
+          "sources": [6, 7],
+          "answer": "Yes, they offered a digital health leadership simulation that replicated real-world scenarios our leaders would face, including FDA interactions and clinical trial decisions.",
+          "evidence": "The simulation was incredible - it put our leaders through realistic scenarios like FDA advisory committee meetings and clinical trial data reviews. This kind of experiential learning was exactly what we needed."
+        }
+      ]
+    },
+    {
+      "section_title": "Relationship and Engagement",
+      "duration": "10-15 minutes",
+      "questions": [
+        {
+          "number": 6,
+          "text": "How would you describe your experience working with our team?",
+          "sub_points": [
+            "Communication",
+            "Responsiveness",
+            "Understanding of your needs"
+          ],
+          "sources": [7, 8],
+          "answer": "Excellent communication and responsiveness. The team was professional and engaged, though they could have demonstrated deeper healthcare industry knowledge.",
+          "evidence": "Michael and his team were always responsive and professional. They clearly understood leadership development principles, but when we discussed healthcare-specific challenges, we felt they needed more industry context."
+        },
+        {
+          "number": 7,
+          "text": "Were there moments in the process where our approach stood out, either positively or negatively?",
+          "sources": [8],
+          "answer": "The leadership assessment methodology was impressive and comprehensive. However, the lack of healthcare-specific examples in the proposal presentation was noticeable.",
+          "evidence": "Your assessment approach was thorough and well-designed. But during the presentation, most examples came from other industries, which made it harder for us to see how it would apply to our unique challenges."
+        },
+        {
+          "number": 8,
+          "text": "How would you describe the chemistry and collaboration between your team and ours?",
+          "sources": [7],
+          "answer": "Very good chemistry and collaboration. The team worked well with our leadership development committee and HR team.",
+          "evidence": "The collaboration was smooth. Your team integrated well with our internal stakeholders and showed genuine interest in understanding our culture and values."
+        },
+        {
+          "number": 9,
+          "text": "Did any specific interactions, meetings, or presentations stand out positively or negatively?",
+          "sources": [9],
+          "answer": "The initial needs assessment workshop was excellent and helped clarify our requirements. The proposal presentation was professional but lacked healthcare-specific content.",
+          "evidence": "The workshop was really valuable - it helped us think more clearly about what we needed from a leadership development program. The presentation was polished but felt generic for our industry."
+        },
+        {
+          "number": 10,
+          "text": "Despite this decision, do you see potential opportunities for us to work together in the future?",
+          "sources": [8, 9],
+          "answer": "Yes, particularly for general leadership development or if you develop healthcare-specific capabilities. We were impressed with your overall methodology.",
+          "evidence": "If you developed healthcare-specific content or partnered with healthcare experts, we'd definitely consider you for future programs. Your core methodology was strong."
+        },
+        {
+          "number": 11,
+          "text": "What would you need to see from us to feel more confident in choosing us for a future project?",
+          "sources": [9],
+          "answer": "Development of healthcare-specific leadership content, partnerships with healthcare industry experts, and case studies from similar medtech companies.",
+          "evidence": "We'd need to see healthcare-specific modules, maybe partnerships with former FDA executives or healthcare CEOs, and proven results with companies like ours."
+        }
+      ]
+    }
+  ]
+} 

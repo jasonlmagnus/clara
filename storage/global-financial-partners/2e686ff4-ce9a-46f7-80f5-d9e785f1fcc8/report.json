@@ -1,0 +1,121 @@
+{
+  "project_name": "CLARA",
+  "description": "CLARA aims to uncover the underlying reasons why potential clients chose competitors or paused their work, gathering insights directly from clients to identify gaps in a value proposition, improve commercial strategies, pinpoint product strengths/weaknesses, pricing gaps, and service and sales deficiencies. By systematically gathering and analyzing feedback, CLARA can enhance strategies, increase win rates, and better serve the market [1, 2].",
+  "interview_details": {
+    "purpose": "The purpose is to improve future engagements and the client's feedback is greatly valued [3].",
+    "format": "Recorded 30-minute interview via MS Teams [3, 4].",
+    "recording_policy": "The interview will be recorded for transcript use only, and the recording will be deleted once the transcript is downloaded [3].",
+    "confidentiality": "Confirm the confidentiality of the discussion [3]."
+  },
+  "interview_structure": [
+    {
+      "section_title": "Opening",
+      "duration": "5 minutes",
+      "points": [
+        "Thank the client for their time and confirm the confidentiality of the discussion [3].",
+        "Emphasize that the purpose is to improve future engagements and that their feedback is greatly valued [3].",
+        "Briefly recap the opportunity, including the solution offered, timeline, and key decision points [3]."
+      ]
+    },
+    {
+      "section_title": "Understanding the Decision",
+      "duration": "10-15 minutes",
+      "questions": [
+        {
+          "number": 1,
+          "text": "Could you share the top factors influencing your decision?",
+          "sources": [3, 5],
+          "answer": "The primary factors were regulatory expertise, board-level relationships, and proven track record in financial services risk management. Spencer Stuart demonstrated deeper knowledge of current regulatory requirements and had existing relationships with several board members.",
+          "evidence": "We needed someone who understood the evolving regulatory landscape, particularly around Basel III and stress testing requirements. Spencer Stuart's candidate pool included several executives with direct regulatory experience, and their consultant had worked with three of our board members previously."
+        },
+        {
+          "number": 2,
+          "text": "How did our proposal compare to the chosen provider in terms of:",
+          "sub_points": [
+            "Pricing",
+            "Service capability", 
+            "Product fit/alignment with your specific needs"
+          ],
+          "note": "Pricing: Positive, Service capability: Negative, Product fit: Neutral",
+          "sources": [5, 6],
+          "answer": "Pricing was competitive and actually lower than Spencer Stuart. Service capability was the main differentiator - they had a dedicated financial services practice with deeper regulatory expertise. Product fit was neutral, both firms offered comprehensive search processes.",
+          "evidence": "Your pricing was about 15% lower, which we appreciated. However, Spencer Stuart's financial services practice head had direct experience with similar CRO searches at three major banks. Their assessment methodology specifically included regulatory scenario testing, which was crucial for this role."
+        },
+        {
+          "number": 3,
+          "text": "Were there any specific gaps or areas where our offering didn't meet your expectations?",
+          "sources": [5, 6],
+          "answer": "The main gap was in regulatory expertise and the depth of the candidate pool for senior risk management roles. We also needed stronger board-level references for this type of appointment.",
+          "evidence": "We felt your team, while excellent, didn't have the same depth of regulatory knowledge that we needed for this critical role. The candidate profiles you presented were strong operationally but lacked the regulatory background we required."
+        },
+        {
+          "number": 4,
+          "text": "Without naming them, what aspects of the chosen provider's offering stood out to your team?",
+          "sources": [5],
+          "answer": "Their specialized financial services practice, existing relationships with regulatory bodies, and a candidate pool that included former regulators and executives with direct stress testing experience.",
+          "evidence": "They brought candidates who had actually worked at the Fed and OCC, which was invaluable. Their consultant also had direct relationships with key regulators, which helped us understand what regulators would be looking for in our next CRO."
+        },
+        {
+          "number": 5,
+          "text": "Did the competitor offer anything innovative or particularly compelling that tipped the scales?",
+          "sources": [6, 7],
+          "answer": "Yes, they offered a regulatory readiness assessment as part of the search process, which helped us understand gaps in our current risk management structure before making the hire.",
+          "evidence": "The regulatory readiness assessment was brilliant - it helped us identify specific areas where our new CRO would need to focus immediately. This wasn't just about finding a candidate, but about understanding our organizational needs better."
+        }
+      ]
+    },
+    {
+      "section_title": "Relationship and Engagement",
+      "duration": "10-15 minutes",
+      "questions": [
+        {
+          "number": 6,
+          "text": "How would you describe your experience working with our team?",
+          "sub_points": [
+            "Communication",
+            "Responsiveness", 
+            "Understanding of your needs"
+          ],
+          "sources": [7, 8],
+          "answer": "The experience was very positive. Communication was clear and professional, responsiveness was excellent, and the team showed good understanding of our general needs, though they could have gone deeper on regulatory requirements.",
+          "evidence": "Sarah and her team were fantastic to work with. They were always available, provided regular updates, and clearly understood our culture and values. The only area for improvement would be deeper regulatory knowledge."
+        },
+        {
+          "number": 7,
+          "text": "Were there moments in the process where our approach stood out, either positively or negatively?",
+          "sources": [8],
+          "answer": "The cultural assessment process was outstanding and really helped us think about fit beyond just technical qualifications. However, the regulatory knowledge gap became apparent during candidate discussions.",
+          "evidence": "Your cultural fit assessment was probably the best we've seen. You really understood our values and what type of leader would succeed here. But when we got into regulatory discussions, we felt we needed more specialized expertise."
+        },
+        {
+          "number": 8,
+          "text": "How would you describe the chemistry and collaboration between your team and ours?",
+          "sources": [7],
+          "answer": "Excellent chemistry and collaboration. The team integrated well with our internal stakeholders and board members who were involved in the process.",
+          "evidence": "The collaboration was seamless. Your team worked well with our CHRO, our current CRO, and even the board members who were involved. Everyone felt comfortable and engaged in the process."
+        },
+        {
+          "number": 9,
+          "text": "Did any specific interactions, meetings, or presentations stand out positively or negatively?",
+          "sources": [9],
+          "answer": "The initial stakeholder alignment session was exceptional - it really helped clarify our requirements. The candidate presentation format was also very professional and comprehensive.",
+          "evidence": "That first workshop where you brought together all our stakeholders was incredibly valuable. It helped us get aligned on what we really needed in this role, beyond just the job description."
+        },
+        {
+          "number": 10,
+          "text": "Despite this decision, do you see potential opportunities for us to work together in the future?",
+          "sources": [8, 9],
+          "answer": "Absolutely. We have several other C-suite searches coming up where regulatory expertise isn't as critical, and we were impressed with your overall approach and cultural assessment capabilities.",
+          "evidence": "We're looking at a new Chief Marketing Officer and Chief Technology Officer in the next 12 months. For those roles, your strengths would be perfect. We'd definitely want to work with you again."
+        },
+        {
+          "number": 11,
+          "text": "What would you need to see from us to feel more confident in choosing us for a future project?",
+          "sources": [9],
+          "answer": "Building deeper regulatory expertise within your financial services practice, perhaps through strategic hires or partnerships with regulatory specialists.",
+          "evidence": "If you could add someone with deep regulatory experience to your financial services team, or partner with regulatory specialists, that would make you much more competitive for senior risk and compliance roles."
+        }
+      ]
+    }
+  ]
+} 

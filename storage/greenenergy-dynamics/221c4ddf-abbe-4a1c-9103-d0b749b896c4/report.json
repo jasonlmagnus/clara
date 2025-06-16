@@ -1,0 +1,149 @@
+{
+  "project_name": "CLARA",
+  "description": "CLARA aims to uncover the underlying reasons why potential clients chose competitors or paused their work, gathering insights directly from clients to identify gaps in a value proposition, improve commercial strategies, pinpoint product strengths/weaknesses, pricing gaps, and service and sales deficiencies. By systematically gathering and analyzing feedback, CLARA can enhance strategies, increase win rates, and better serve the market [1, 2].",
+  "interview_details": {
+    "purpose": "The purpose is to improve future engagements and the client's feedback is greatly valued [3].",
+    "format": "Recorded 30-minute interview via MS Teams [3, 4].",
+    "recording_policy": "The interview will be recorded for transcript use only, and the recording will be deleted once the transcript is downloaded [3].",
+    "confidentiality": "Confirm the confidentiality of the discussion [3]."
+  },
+  "interview_structure": [
+    {
+      "section_title": "Opening",
+      "duration": "5 minutes",
+      "points": [
+        "Thank the client for their time and confirm the confidentiality of the discussion [3].",
+        "Emphasize that the purpose is to improve future engagements and that their feedback is greatly valued [3].",
+        "Briefly recap the opportunity, including the solution offered, timeline, and key decision points [3]."
+      ]
+    },
+    {
+      "section_title": "Understanding the Decision",
+      "duration": "10-15 minutes",
+      "questions": [
+        {
+          "number": 1,
+          "text": "Could you share the top factors influencing your decision?",
+          "sources": [
+            3,
+            5
+          ],
+          "answer": "The key factors were Technology implementation expertise, energy sector digital transformation experience, comprehensive reskilling programs.",
+          "evidence": "The competitor demonstrated superior capabilities in these areas, which were critical for our success."
+        },
+        {
+          "number": 2,
+          "text": "How did our proposal compare to the chosen provider in terms of:",
+          "sub_points": [
+            "Pricing",
+            "Service capability",
+            "Product fit/alignment with your specific needs"
+          ],
+          "note": "Pricing: Positive, Service capability: Negative, Product fit: Negative",
+          "sources": [
+            5,
+            6
+          ],
+          "answer": "The comparison showed gaps in our offering, particularly in Limited technology implementation experience, less energy sector digital expertise, basic reskilling approach.",
+          "evidence": "While some aspects were competitive, the competitor's strengths in Strong technology implementation, proven energy digital transformations, comprehensive reskilling methodology were decisive."
+        },
+        {
+          "number": 3,
+          "text": "Were there any specific gaps or areas where our offering didn't meet your expectations?",
+          "sources": [
+            5,
+            6
+          ],
+          "answer": "The main gaps were Limited technology implementation experience, less energy sector digital expertise, basic reskilling approach.",
+          "evidence": "These gaps were significant because they directly impacted our ability to achieve our objectives."
+        },
+        {
+          "number": 4,
+          "text": "Without naming them, what aspects of the chosen provider's offering stood out to your team?",
+          "sources": [
+            5
+          ],
+          "answer": "Their key strengths were Strong technology implementation, proven energy digital transformations, comprehensive reskilling methodology.",
+          "evidence": "These capabilities directly addressed our most critical needs and concerns."
+        },
+        {
+          "number": 5,
+          "text": "Did the competitor offer anything innovative or particularly compelling that tipped the scales?",
+          "sources": [
+            6,
+            7
+          ],
+          "answer": "Yes, AI-powered skills gap analysis that identified specific reskilling needs for renewable energy transition.",
+          "evidence": "This innovation provided significant value that we couldn't get elsewhere."
+        }
+      ]
+    },
+    {
+      "section_title": "Relationship and Engagement",
+      "duration": "10-15 minutes",
+      "questions": [
+        {
+          "number": 6,
+          "text": "How would you describe your experience working with our team?",
+          "sub_points": [
+            "Communication",
+            "Responsiveness",
+            "Understanding of your needs"
+          ],
+          "sources": [
+            7,
+            8
+          ],
+          "answer": "Excellent partnership and collaboration throughout the engagement.",
+          "evidence": "The team was professional and engaged throughout the process."
+        },
+        {
+          "number": 7,
+          "text": "Were there moments in the process where our approach stood out, either positively or negatively?",
+          "sources": [
+            8
+          ],
+          "answer": "Workforce assessment was insightful, but technology implementation plan felt underdeveloped.",
+          "evidence": "While there were positive aspects, some areas needed improvement."
+        },
+        {
+          "number": 8,
+          "text": "How would you describe the chemistry and collaboration between your team and ours?",
+          "sources": [
+            7
+          ],
+          "answer": "The chemistry and collaboration were positive throughout the engagement.",
+          "evidence": "Both teams worked well together and maintained professional relationships."
+        },
+        {
+          "number": 9,
+          "text": "Did any specific interactions, meetings, or presentations stand out positively or negatively?",
+          "sources": [
+            9
+          ],
+          "answer": "The initial assessment and proposal presentations were well-executed and professional.",
+          "evidence": "The team demonstrated good preparation and understanding of our needs."
+        },
+        {
+          "number": 10,
+          "text": "Despite this decision, do you see potential opportunities for us to work together in the future?",
+          "sources": [
+            8,
+            9
+          ],
+          "answer": "Yes, for organizational strategy or if we strengthen technology capabilities.",
+          "evidence": "There are areas where your capabilities would be a good fit for our needs."
+        },
+        {
+          "number": 11,
+          "text": "What would you need to see from us to feel more confident in choosing us for a future project?",
+          "sources": [
+            9
+          ],
+          "answer": "Technology implementation expertise, energy sector digital experience, advanced reskilling methodologies.",
+          "evidence": "These improvements would make you much more competitive for similar engagements."
+        }
+      ]
+    }
+  ]
+}
