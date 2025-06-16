@@ -38,7 +38,7 @@ export default function DataInput() {
     "Did the competitor offer anything innovative or particularly compelling that tipped the scales?",
 
     // Relationship and Engagement (10-15 minutes)
-    "How would you describe your experience working with our team? (Communication, Responsiveness, Understanding of your needs)",
+    "How would you describe your experience with our team? (Communication, Responsiveness, Understanding of your needs)",
     "Were there moments in the process where our approach stood out, either positively or negatively?",
     "How would you describe the chemistry and collaboration between your team and ours?",
     "Did any specific interactions, meetings, or presentations stand out positively or negatively?",
@@ -50,6 +50,8 @@ export default function DataInput() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [analysisResult, setAnalysisResult] = useState<any | null>(null);
+  const [transcript, setTranscript] = useState("");
+  const [dragActive, setDragActive] = useState(false);
 
   const [metadata, setMetadata] = useState({
     company: "",
@@ -60,7 +62,6 @@ export default function DataInput() {
     industry: "",
     notes: "",
   });
-  const [metadataSaved, setMetadataSaved] = useState(false);
   const [activeTab, setActiveTab] = useState("metadata");
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,19 +77,29 @@ export default function DataInput() {
     setMetadata((prev) => ({ ...prev, [field]: value }));
   };
 
-  const saveMetadata = () => {
-    if (metadata.company && metadata.accountLead && metadata.interviewDate) {
-      setMetadataSaved(true);
-      setActiveTab("upload");
-    } else {
-      setError("Please fill in Company, Account Lead and Interview Date.");
+  const handleDrag = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      setFile(e.dataTransfer.files[0]);
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!file) {
-      setError("Please select a file to analyze.");
+    if (!file && !transcript.trim()) {
+      setError("Please select a file or paste transcript text to analyze.");
       return;
     }
 
@@ -105,7 +116,12 @@ export default function DataInput() {
     setAnalysisResult(null);
 
     const formData = new FormData();
-    formData.append("file", file);
+    if (file) {
+      formData.append("file", file);
+    }
+    if (transcript.trim()) {
+      formData.append("transcript", transcript);
+    }
     formData.append("questions", JSON.stringify(questions));
     formData.append("metadata", JSON.stringify(metadata));
 
@@ -158,6 +174,7 @@ export default function DataInput() {
           onClick={() => {
             setAnalysisResult(null);
             setFile(null);
+            setTranscript("");
           }}
         >
           Create Another Report
@@ -175,293 +192,336 @@ export default function DataInput() {
         </p>
       </div>
 
-      <Tabs
-        value={activeTab}
-        onValueChange={setActiveTab}
-        className="space-y-6"
-      >
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="metadata">Metadata</TabsTrigger>
-          <TabsTrigger value="upload">Upload</TabsTrigger>
-          <TabsTrigger value="questions">Questions</TabsTrigger>
-        </TabsList>
+      <form onSubmit={handleSubmit}>
+        <Tabs
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="space-y-6"
+        >
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="metadata">Metadata</TabsTrigger>
+            <TabsTrigger value="upload">Upload</TabsTrigger>
+            <TabsTrigger value="questions">Questions</TabsTrigger>
+          </TabsList>
 
-        <TabsContent value="metadata">
-          <Card>
-            <CardHeader>
-              <CardTitle>Deal Management</CardTitle>
-              <CardDescription>
-                Enter the metadata for the deal you are analyzing.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="company">Company Name</Label>
-                  <Input
-                    id="company"
-                    placeholder="e.g. Acme Inc."
-                    value={metadata.company}
-                    onChange={(e) =>
-                      handleMetadataChange("company", e.target.value)
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="deal-value">Deal Value</Label>
-                  <Input
-                    id="deal-value"
-                    placeholder="e.g. $100,000"
-                    value={metadata.dealValue}
-                    onChange={(e) =>
-                      handleMetadataChange("dealValue", e.target.value)
-                    }
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="account-lead">Account Lead</Label>
-                  <Input
-                    id="account-lead"
-                    placeholder="e.g. John Doe"
-                    value={metadata.accountLead}
-                    onChange={(e) =>
-                      handleMetadataChange("accountLead", e.target.value)
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="interview-date">Interview Date</Label>
-                  <Input
-                    id="interview-date"
-                    type="date"
-                    value={metadata.interviewDate}
-                    onChange={(e) =>
-                      handleMetadataChange("interviewDate", e.target.value)
-                    }
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="competitor">Competitor</Label>
-                  <Input
-                    id="competitor"
-                    placeholder="e.g. Globex Corp."
-                    value={metadata.competitor}
-                    onChange={(e) =>
-                      handleMetadataChange("competitor", e.target.value)
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="industry">Industry</Label>
-                  <Input
-                    id="industry"
-                    placeholder="e.g. Technology"
-                    value={metadata.industry}
-                    onChange={(e) =>
-                      handleMetadataChange("industry", e.target.value)
-                    }
-                  />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="notes">Notes</Label>
-                <Textarea
-                  id="notes"
-                  placeholder="Any relevant notes about this deal or interview."
-                  value={metadata.notes}
-                  onChange={(e) =>
-                    handleMetadataChange("notes", e.target.value)
-                  }
-                />
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="upload" className="space-y-6">
-          {!metadata.company ? (
-            <div className="flex flex-col items-center justify-center text-center p-8 border-2 border-dashed rounded-lg">
-              <p className="mb-4 text-muted-foreground">
-                Please provide a Company Name in the 'Metadata' tab before uploading data.
-              </p>
-              <Button onClick={() => setActiveTab("metadata")}>Go to Metadata</Button>
-            </div>
-          ) : (
+          <TabsContent value="metadata">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Upload className="h-5 w-5" />
-                  Upload Data
-                </CardTitle>
+                <CardTitle>Deal Management</CardTitle>
                 <CardDescription>
-                  Upload a recording or transcript, or paste the transcript text.
+                  Enter the metadata for the deal you are analyzing.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="file-upload">Audio, Video or Document File</Label>
-                  <div className="flex items-center space-x-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="company">Company Name</Label>
                     <Input
-                      id="file-upload"
-                      type="file"
-                      onChange={handleFileChange}
-                      className="flex-grow"
-                      accept="audio/*,video/*,.txt,.doc,.docx,.pdf"
+                      id="company"
+                      placeholder="e.g. Acme Inc."
+                      value={metadata.company}
+                      onChange={(e) =>
+                        handleMetadataChange("company", e.target.value)
+                      }
                     />
                   </div>
-                  {file && (
-                    <div className="text-sm text-muted-foreground">
-                      Selected file: {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)
-                    </div>
-                  )}
-                </div>
-
-                <div className="relative">
-                  <div className="absolute inset-0 flex items-center">
-                    <span className="w-full border-t" />
-                  </div>
-                  <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-background px-2 text-muted-foreground">Or paste text</span>
+                  <div className="space-y-2">
+                    <Label htmlFor="deal-value">Deal Value</Label>
+                    <Input
+                      id="deal-value"
+                      placeholder="e.g. $100,000"
+                      value={metadata.dealValue}
+                      onChange={(e) =>
+                        handleMetadataChange("dealValue", e.target.value)
+                      }
+                    />
                   </div>
                 </div>
-
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="account-lead">Account Lead</Label>
+                    <Input
+                      id="account-lead"
+                      placeholder="e.g. John Doe"
+                      value={metadata.accountLead}
+                      onChange={(e) =>
+                        handleMetadataChange("accountLead", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="interview-date">Interview Date</Label>
+                    <Input
+                      id="interview-date"
+                      type="date"
+                      value={metadata.interviewDate}
+                      onChange={(e) =>
+                        handleMetadataChange("interviewDate", e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="competitor">Competitor</Label>
+                    <Input
+                      id="competitor"
+                      placeholder="e.g. Globex Corp."
+                      value={metadata.competitor}
+                      onChange={(e) =>
+                        handleMetadataChange("competitor", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="industry">Industry</Label>
+                    <Input
+                      id="industry"
+                      placeholder="e.g. Technology"
+                      value={metadata.industry}
+                      onChange={(e) =>
+                        handleMetadataChange("industry", e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
                 <div className="space-y-2">
-                  <Label htmlFor="transcript">Transcript Text</Label>
+                  <Label htmlFor="notes">Internal Notes</Label>
                   <Textarea
-                    id="transcript"
-                    placeholder="Paste the interview transcript here..."
-                    className="min-h-[200px]"
+                    id="notes"
+                    placeholder="e.g. Key decision-maker was on vacation..."
+                    value={metadata.notes}
+                    onChange={(e) =>
+                      handleMetadataChange("notes", e.target.value)
+                    }
                   />
-                </div>
-
-                <div className="flex justify-end space-x-4">
-                  <Button type="submit" disabled={isProcessing || !file}>
-                    {isProcessing && (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    )}
-                    {isProcessing ? "Analyzing..." : "Analyze"}
-                  </Button>
                 </div>
               </CardContent>
             </Card>
-          )}
-        </TabsContent>
+          </TabsContent>
 
-        <TabsContent value="questions" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>CLARA Interview Questions</CardTitle>
-              <CardDescription>
-                Standardized question set for 30-minute client feedback
-                interviews
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {/* Interview Structure Overview */}
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-blue-800 mb-2">
-                  Interview Structure (30 minutes total)
-                </h3>
-                <div className="grid gap-3 text-sm">
-                  <div className="flex justify-between">
-                    <span className="font-medium">Opening</span>
-                    <span className="text-blue-600">5 minutes</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-medium">
-                      Understanding the Decision
-                    </span>
-                    <span className="text-blue-600">10-15 minutes</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-medium">
-                      Relationship and Engagement
-                    </span>
-                    <span className="text-blue-600">10-15 minutes</span>
-                  </div>
-                </div>
+          <TabsContent value="upload" className="space-y-6">
+            {!metadata.company ? (
+              <div className="flex flex-col items-center justify-center text-center p-8 border-2 border-dashed rounded-lg">
+                <p className="mb-4 text-muted-foreground">
+                  Please provide a Company Name in the 'Metadata' tab before
+                  uploading data.
+                </p>
+                <Button onClick={() => setActiveTab("metadata")}>
+                  Go to Metadata
+                </Button>
               </div>
+            ) : (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Upload className="h-5 w-5" />
+                    Upload Data
+                  </CardTitle>
+                  <CardDescription>
+                    Upload a recording or transcript, or paste the transcript
+                    text.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="file-upload">
+                      Audio, Video or Document File
+                    </Label>
+                    <div
+                      className={`relative border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
+                        dragActive
+                          ? "border-primary bg-primary/5"
+                          : "border-gray-300 hover:border-gray-400"
+                      }`}
+                      onDragEnter={handleDrag}
+                      onDragLeave={handleDrag}
+                      onDragOver={handleDrag}
+                      onDrop={handleDrop}
+                    >
+                      <input
+                        id="file-upload"
+                        type="file"
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        onChange={handleFileChange}
+                        accept="audio/*,video/*,.txt,.doc,.docx,.pdf"
+                      />
+                      <div className="space-y-2">
+                        <Upload className="mx-auto h-8 w-8 text-gray-400" />
+                        <div className="text-sm">
+                          <span className="font-medium text-primary">
+                            Click to upload
+                          </span>{" "}
+                          or drag and drop
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          Audio, video, or document files (MP3, MP4, TXT, DOC,
+                          PDF)
+                        </div>
+                      </div>
+                    </div>
+                    {file && (
+                      <div className="text-sm text-muted-foreground">
+                        Selected file: {file.name} (
+                        {(file.size / 1024 / 1024).toFixed(2)} MB)
+                      </div>
+                    )}
+                  </div>
 
-              {/* Opening Section */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline">Opening - 5 minutes</Badge>
-                </div>
-                {questions.slice(0, 3).map((question, index) => (
-                  <div key={index} className="p-3 border rounded-lg bg-gray-50">
-                    <div className="text-sm font-medium text-gray-700">
-                      {index + 1}. {question}
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <span className="w-full border-t" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                      <span className="bg-background px-2 text-muted-foreground">
+                        Or paste text
+                      </span>
                     </div>
                   </div>
-                ))}
-              </div>
 
-              {/* Understanding the Decision Section */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline">
-                    Understanding the Decision - 10-15 minutes
-                  </Badge>
-                </div>
-                {questions.slice(3, 8).map((question, index) => (
-                  <div key={index + 3} className="p-3 border rounded-lg">
-                    <div className="text-sm font-medium">
-                      {index + 4}. {question}
+                  <div className="space-y-2">
+                    <Label htmlFor="transcript">Transcript Text</Label>
+                    <Textarea
+                      id="transcript"
+                      placeholder="Paste the interview transcript here..."
+                      className="min-h-[200px]"
+                      value={transcript}
+                      onChange={(e) => setTranscript(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="flex justify-end space-x-4">
+                    <Button
+                      type="submit"
+                      disabled={isProcessing || (!file && !transcript.trim())}
+                    >
+                      {isProcessing && (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      )}
+                      {isProcessing ? "Analyzing..." : "Analyze"}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </TabsContent>
+
+          <TabsContent value="questions" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>CLARA Interview Questions</CardTitle>
+                <CardDescription>
+                  Standardized question set for 30-minute client feedback
+                  interviews
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* Interview Structure Overview */}
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <h3 className="font-semibold text-blue-800 mb-2">
+                    Interview Structure (30 minutes total)
+                  </h3>
+                  <div className="grid gap-3 text-sm">
+                    <div className="flex justify-between">
+                      <span className="font-medium">Opening</span>
+                      <span className="text-blue-600">5 minutes</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="font-medium">
+                        Understanding the Decision
+                      </span>
+                      <span className="text-blue-600">10-15 minutes</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="font-medium">
+                        Relationship and Engagement
+                      </span>
+                      <span className="text-blue-600">10-15 minutes</span>
                     </div>
                   </div>
-                ))}
-              </div>
-
-              {/* Relationship and Engagement Section */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline">
-                    Relationship and Engagement - 10-15 minutes
-                  </Badge>
                 </div>
-                {questions.slice(8).map((question, index) => (
-                  <div key={index + 8} className="p-3 border rounded-lg">
-                    <div className="text-sm font-medium">
-                      {index + 9}. {question}
-                    </div>
+
+                {/* Opening Section */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline">Opening - 5 minutes</Badge>
                   </div>
-                ))}
-              </div>
+                  {questions.slice(0, 3).map((question, index) => (
+                    <div
+                      key={index}
+                      className="p-3 border rounded-lg bg-gray-50"
+                    >
+                      <div className="text-sm font-medium text-gray-700">
+                        {index + 1}. {question}
+                      </div>
+                    </div>
+                  ))}
+                </div>
 
-              {/* Interview Guidelines */}
-              <div className="bg-amber-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-amber-800 mb-2">
-                  Interview Guidelines
-                </h4>
-                <ul className="text-sm text-amber-700 space-y-1">
-                  <li>
-                    • Interview will be recorded via MS Teams for transcript use
-                    only
-                  </li>
-                  <li>
-                    • Recording will be deleted once transcript is downloaded
-                  </li>
-                  <li>
-                    • Confirm confidentiality of the discussion at the start
-                  </li>
-                  <li>
-                    • Focus on improvement opportunities for future engagements
-                  </li>
-                </ul>
-              </div>
+                {/* Understanding the Decision Section */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline">
+                      Understanding the Decision - 10-15 minutes
+                    </Badge>
+                  </div>
+                  {questions.slice(3, 8).map((question, index) => (
+                    <div key={index + 3} className="p-3 border rounded-lg">
+                      <div className="text-sm font-medium">
+                        {index + 4}. {question}
+                      </div>
+                    </div>
+                  ))}
+                </div>
 
-              <div className="flex gap-2">
-                <Button className="flex-1">Export Question Set</Button>
-                <Button variant="outline">Email Template</Button>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+                {/* Relationship and Engagement Section */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline">
+                      Relationship and Engagement - 10-15 minutes
+                    </Badge>
+                  </div>
+                  {questions.slice(8).map((question, index) => (
+                    <div key={index + 8} className="p-3 border rounded-lg">
+                      <div className="text-sm font-medium">
+                        {index + 9}. {question}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Interview Guidelines */}
+                <div className="bg-amber-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-amber-800 mb-2">
+                    Interview Guidelines
+                  </h4>
+                  <ul className="text-sm text-amber-700 space-y-1">
+                    <li>
+                      • Interview will be recorded via MS Teams for transcript
+                      use only
+                    </li>
+                    <li>
+                      • Recording will be deleted once transcript is downloaded
+                    </li>
+                    <li>
+                      • Confirm confidentiality of the discussion at the start
+                    </li>
+                    <li>
+                      • Focus on improvement opportunities for future
+                      engagements
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="flex gap-2">
+                  <Button className="flex-1">Export Question Set</Button>
+                  <Button variant="outline">Email Template</Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </form>
     </div>
   );
 }
