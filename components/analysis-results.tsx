@@ -18,8 +18,10 @@ import {
   Target,
   Download,
 } from "lucide-react";
+import { useClientStore } from "@/lib/client-store";
 
 export default function AnalysisResults() {
+  const selectedClient = useClientStore((s) => s.selectedClient);
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
@@ -173,30 +175,30 @@ export default function AnalysisResults() {
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
-                <div className="border-l-4 border-blue-500 pl-4">
-                  <h4 className="font-semibold">TechCorp Solutions Analysis</h4>
-                  <p className="text-sm text-muted-foreground mb-2">
-                    Completed 2 hours ago
-                  </p>
-                  <p className="text-sm">
-                    Primary loss factor: Pricing (40% above budget). Secondary
-                    concerns around integration complexity and timeline.
-                    Competitor A won with 25% lower pricing and faster
-                    implementation promise.
-                  </p>
-                </div>
-
-                <div className="border-l-4 border-green-500 pl-4">
-                  <h4 className="font-semibold">InnovateCo Analysis</h4>
-                  <p className="text-sm text-muted-foreground mb-2">
-                    Completed 1 day ago
-                  </p>
-                  <p className="text-sm">
-                    Strong product fit but lost on advanced analytics features.
-                    Client specifically needed real-time dashboard capabilities
-                    that Competitor C offered out-of-the-box.
-                  </p>
-                </div>
+                {[
+                  {
+                    company: "TechCorp Solutions",
+                    color: "border-blue-500",
+                    text:
+                      "Primary loss factor: Pricing (40% above budget). Secondary concerns around integration complexity and timeline. Competitor A won with 25% lower pricing and faster implementation promise.",
+                  },
+                  {
+                    company: "InnovateCo",
+                    color: "border-green-500",
+                    text:
+                      "Strong product fit but lost on advanced analytics features. Client specifically needed real-time dashboard capabilities that Competitor C offered out-of-the-box.",
+                  },
+                ]
+                  .filter((s) => !selectedClient || s.company === selectedClient)
+                  .map((s) => (
+                    <div key={s.company} className={`border-l-4 ${s.color} pl-4`}>
+                      <h4 className="font-semibold">{s.company} Analysis</h4>
+                      <p className="text-sm text-muted-foreground mb-2">
+                        Completed recently
+                      </p>
+                      <p className="text-sm">{s.text}</p>
+                    </div>
+                  ))}
               </div>
             </CardContent>
           </Card>
