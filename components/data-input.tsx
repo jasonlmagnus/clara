@@ -20,14 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Upload,
-  FileText,
-  Mic,
-  Link,
-  Loader2,
-  CheckCircle,
-} from "lucide-react";
+import { Upload, Loader2, CheckCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export default function DataInput() {
@@ -86,7 +79,7 @@ export default function DataInput() {
   const saveMetadata = () => {
     if (metadata.company && metadata.accountLead && metadata.interviewDate) {
       setMetadataSaved(true);
-      setActiveTab("transcript");
+      setActiveTab("upload");
     } else {
       setError("Please fill in Company, Account Lead and Interview Date.");
     }
@@ -178,7 +171,7 @@ export default function DataInput() {
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Data Input</h1>
         <p className="text-muted-foreground">
-          Upload transcripts, recordings, and configure interview questions
+          Upload data and configure interview questions
         </p>
       </div>
 
@@ -187,10 +180,9 @@ export default function DataInput() {
         onValueChange={setActiveTab}
         className="space-y-6"
       >
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="metadata">Metadata</TabsTrigger>
-          <TabsTrigger value="transcript">Transcript</TabsTrigger>
-          <TabsTrigger value="recording">Recording</TabsTrigger>
+          <TabsTrigger value="upload">Upload</TabsTrigger>
           <TabsTrigger value="questions">Questions</TabsTrigger>
         </TabsList>
 
@@ -290,146 +282,73 @@ export default function DataInput() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="transcript" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <FileText className="h-5 w-5" />
-                Interview Transcript
-              </CardTitle>
-              <CardDescription>
-                Upload or paste the interview transcript for analysis
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                <Upload className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                <p className="text-lg font-medium mb-2">
-                  Drop transcript file here
-                </p>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Supports .txt, .docx, .pdf files up to 10MB
-                </p>
-                <Button>Choose File</Button>
-              </div>
-
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
+        <TabsContent value="upload" className="space-y-6">
+          {!metadata.company ? (
+            <div className="flex flex-col items-center justify-center text-center p-8 border-2 border-dashed rounded-lg">
+              <p className="mb-4 text-muted-foreground">
+                Please provide a Company Name in the 'Metadata' tab before uploading data.
+              </p>
+              <Button onClick={() => setActiveTab("metadata")}>Go to Metadata</Button>
+            </div>
+          ) : (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Upload className="h-5 w-5" />
+                  Upload Data
+                </CardTitle>
+                <CardDescription>
+                  Upload a recording or transcript, or paste the transcript text.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="file-upload">Audio, Video or Document File</Label>
+                  <div className="flex items-center space-x-4">
+                    <Input
+                      id="file-upload"
+                      type="file"
+                      onChange={handleFileChange}
+                      className="flex-grow"
+                      accept="audio/*,video/*,.txt,.doc,.docx,.pdf"
+                    />
+                  </div>
+                  {file && (
+                    <div className="text-sm text-muted-foreground">
+                      Selected file: {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)
+                    </div>
+                  )}
                 </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-background px-2 text-muted-foreground">
-                    Or paste text
-                  </span>
+
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t" />
+                  </div>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-background px-2 text-muted-foreground">Or paste text</span>
+                  </div>
                 </div>
-              </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="transcript">Transcript Text</Label>
-                <Textarea
-                  id="transcript"
-                  placeholder="Paste the interview transcript here..."
-                  className="min-h-[200px]"
-                />
-              </div>
+                <div className="space-y-2">
+                  <Label htmlFor="transcript">Transcript Text</Label>
+                  <Textarea
+                    id="transcript"
+                    placeholder="Paste the interview transcript here..."
+                    className="min-h-[200px]"
+                  />
+                </div>
 
-              <Button className="w-full">Process Transcript</Button>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="recording" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Upload Recording</CardTitle>
-              <CardDescription>
-                Upload an audio or video file of the interview.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {!metadata.company ? (
-                <div className="flex flex-col items-center justify-center text-center p-8 border-2 border-dashed rounded-lg">
-                  <p className="mb-4 text-muted-foreground">
-                    Please provide a Company Name in the 'Metadata' tab before
-                    uploading a recording.
-                  </p>
-                  <Button onClick={() => setActiveTab("metadata")}>
-                    Go to Metadata
+                <div className="flex justify-end space-x-4">
+                  <Button type="submit" disabled={isProcessing || !file}>
+                    {isProcessing && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
+                    {isProcessing ? "Analyzing..." : "Analyze"}
                   </Button>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="file-upload">Audio/Video File</Label>
-                    <div className="flex items-center space-x-4">
-                      <Input
-                        id="file-upload"
-                        type="file"
-                        onChange={handleFileChange}
-                        className="flex-grow"
-                        accept="audio/*,video/*"
-                      />
-                    </div>
-                    {file && (
-                      <div className="text-sm text-muted-foreground">
-                        Selected file: {file.name} (
-                        {(file.size / 1024 / 1024).toFixed(2)} MB)
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="flex justify-end space-x-4">
-                    <Button type="submit" disabled={isProcessing || !file}>
-                      {isProcessing && (
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      )}
-                      {isProcessing ? "Analyzing..." : "Analyze Recording"}
-                    </Button>
-                  </div>
-                </form>
-              )}
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Recording Link</CardTitle>
-              <CardDescription>
-                Provide a link to a MS Teams recording or email it to marketing
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-3">
-                <div className="space-y-2">
-                  <Label htmlFor="recording-link">MS Teams Recording URL</Label>
-                  <Input
-                    id="recording-link"
-                    placeholder="https://teams.microsoft.com/..."
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="recording-email">Or Email to Marketing</Label>
-                  <Input
-                    id="recording-email"
-                    placeholder="marketing@company.com"
-                    disabled
-                    value="marketing@company.com"
-                  />
-                </div>
-                <Button variant="outline" className="w-full" type="button">
-                  <Link className="h-4 w-4 mr-2" />
-                  Send Link
-                </Button>
-              </div>
-
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <p className="text-sm text-blue-800">
-                  <strong>Note:</strong> Recordings will be automatically
-                  deleted once the transcript is generated to ensure data
-                  privacy and compliance.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          )}
         </TabsContent>
 
         <TabsContent value="questions" className="space-y-6">
