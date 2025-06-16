@@ -24,12 +24,9 @@
         {
           "number": 1,
           "text": "Could you share the top factors influencing your decision?",
-          "sources": [
-            3,
-            5
-          ],
-          "answer": "The key factors were Advanced analytics capabilities, comprehensive market research, proven consumer goods expertise.",
-          "evidence": "The competitor demonstrated superior capabilities in these areas, which were critical for our success."
+          "sources": [3, 5],
+          "answer": "The primary factors were analytical rigor, consumer goods expertise, and proven methodology for sales force optimization. Bain had a much stronger analytical foundation - they brought proprietary market research data and predictive models that could forecast the impact of different go-to-market strategies. Their consumer goods practice had worked with three major CPG companies on similar sales effectiveness transformations.",
+          "evidence": "We needed a partner who could combine strategic thinking with deep analytical capabilities. Bain's approach included advanced analytics, market research, and consumer behavior modeling that would help us understand not just how to optimize our sales force, but how to align it with changing consumer preferences and retail dynamics."
         },
         {
           "number": 2,
@@ -39,42 +36,31 @@
             "Service capability",
             "Product fit/alignment with your specific needs"
           ],
-          "note": "Pricing: Positive, Service capability: Negative, Product fit: Negative",
-          "sources": [
-            5,
-            6
-          ],
-          "answer": "The comparison showed gaps in our offering, particularly in Limited advanced analytics, less comprehensive market research, generic sales approach.",
-          "evidence": "While some aspects were competitive, the competitor's strengths in Sophisticated analytics platform, extensive market research capabilities, consumer goods specialization were decisive."
+          "note": "Pricing: Neutral, Service capability: Negative, Product fit: Negative",
+          "sources": [5, 6],
+          "answer": "Pricing was comparable - both proposals were within 15% of each other. Service capability strongly favored Bain due to their analytical depth and consumer goods specialization. Product fit was better with Bain because their methodology was specifically designed for consumer brands facing retail disruption.",
+          "evidence": "Your pricing was actually slightly more competitive, which we appreciated. However, Bain's consumer goods practice had developed sales effectiveness frameworks specifically for CPG companies, including retail relationship optimization, category management integration, and consumer insights-driven territory planning. Their approach felt purpose-built for our industry challenges."
         },
         {
           "number": 3,
           "text": "Were there any specific gaps or areas where our offering didn't meet your expectations?",
-          "sources": [
-            5,
-            6
-          ],
-          "answer": "The main gaps were Limited advanced analytics, less comprehensive market research, generic sales approach.",
-          "evidence": "These gaps were significant because they directly impacted our ability to achieve our objectives."
+          "sources": [5, 6],
+          "answer": "The main gaps were in analytical depth and consumer goods-specific expertise. Your team approached this as a general sales optimization project rather than understanding the unique challenges of consumer brands in today's retail environment.",
+          "evidence": "We operate in a complex ecosystem with traditional retail, e-commerce, and direct-to-consumer channels, each requiring different sales approaches. Your proposal didn't address how to optimize our sales force for omnichannel retail, how to integrate category management insights, or how to use consumer data to drive territory and account planning."
         },
         {
           "number": 4,
           "text": "Without naming them, what aspects of the chosen provider's offering stood out to your team?",
-          "sources": [
-            5
-          ],
-          "answer": "Their key strengths were Sophisticated analytics platform, extensive market research capabilities, consumer goods specialization.",
-          "evidence": "These capabilities directly addressed our most critical needs and concerns."
+          "sources": [5],
+          "answer": "Their analytical capabilities were exceptional - they had proprietary consumer research data, advanced modeling capabilities, and deep insights into retail trends. They also understood the complexity of consumer goods sales, including category management, trade promotion optimization, and retailer relationship dynamics.",
+          "evidence": "They showed us predictive models that could forecast how different sales strategies would impact market share across different retail channels. They understood that our sales effectiveness wasn't just about individual rep performance, but about how we engage with retailers, manage categories, and respond to consumer trends."
         },
         {
           "number": 5,
           "text": "Did the competitor offer anything innovative or particularly compelling that tipped the scales?",
-          "sources": [
-            6,
-            7
-          ],
-          "answer": "Yes, Predictive sales analytics model that forecasted market response to different go-to-market strategies.",
-          "evidence": "This innovation provided significant value that we couldn't get elsewhere."
+          "sources": [6, 7],
+          "answer": "Yes, their predictive sales analytics model was brilliant. It could forecast market response to different go-to-market strategies by combining our sales data with consumer behavior insights, retail trends, and competitive intelligence. This gave us a data-driven way to optimize our entire commercial approach.",
+          "evidence": "This predictive capability was a game-changer. Instead of just optimizing our current sales approach, we could model how different strategies would perform in the changing retail landscape. They could predict which territories would be most impacted by e-commerce growth, which retailer relationships needed the most attention, and how to reallocate resources for maximum impact."
         }
       ]
     },
@@ -90,58 +76,44 @@
             "Responsiveness",
             "Understanding of your needs"
           ],
-          "sources": [
-            7,
-            8
-          ],
-          "answer": "Strong collaboration and good understanding of our sales challenges.",
-          "evidence": "The team was professional and engaged throughout the process."
+          "sources": [7, 8],
+          "answer": "The experience was positive from a relationship standpoint. Communication was clear and professional, Thomas and his team were responsive, and they understood our general sales challenges. The gap was more in analytical depth and consumer goods expertise than relationship quality.",
+          "evidence": "Your team was professional and clearly understood sales optimization principles. The relationship management was good - we felt like you were genuinely engaged with our challenges. The issue was more around the analytical rigor and industry-specific expertise we needed for this transformation."
         },
         {
           "number": 7,
           "text": "Were there moments in the process where our approach stood out, either positively or negatively?",
-          "sources": [
-            8
-          ],
-          "answer": "Sales assessment was thorough, but analytical depth was limited compared to competitor.",
-          "evidence": "While there were positive aspects, some areas needed improvement."
+          "sources": [8],
+          "answer": "Your sales assessment methodology was thorough and the team dynamics were excellent. However, when we discussed analytical requirements and consumer goods-specific challenges, the limitations became apparent.",
+          "evidence": "The sales force assessment you proposed was comprehensive and well-designed. But when we talked about integrating consumer insights, optimizing for omnichannel retail, and using advanced analytics for territory planning, it felt like we were having to educate your team about the complexity of consumer goods sales."
         },
         {
           "number": 8,
           "text": "How would you describe the chemistry and collaboration between your team and ours?",
-          "sources": [
-            7
-          ],
-          "answer": "The chemistry and collaboration were positive throughout the engagement.",
-          "evidence": "Both teams worked well together and maintained professional relationships."
+          "sources": [7],
+          "answer": "Excellent chemistry and collaboration. Your team worked well with our sales leadership, understood our culture, and integrated smoothly with our commercial team.",
+          "evidence": "The collaboration was seamless. Your team worked well with our Chief Commercial Officer, our sales directors, and our marketing team. Everyone felt comfortable with your approach and appreciated your collaborative style."
         },
         {
           "number": 9,
           "text": "Did any specific interactions, meetings, or presentations stand out positively or negatively?",
-          "sources": [
-            9
-          ],
-          "answer": "The initial assessment and proposal presentations were well-executed and professional.",
-          "evidence": "The team demonstrated good preparation and understanding of our needs."
+          "sources": [9],
+          "answer": "The initial sales force diagnostic workshop was excellent and helped clarify our optimization priorities. The final presentation was professional but lacked the analytical depth and consumer goods context we were looking for.",
+          "evidence": "That first workshop was really valuable - it helped us understand our current sales effectiveness gaps and align on priorities. But the final proposal felt generic and didn't address our unique challenges around retail relationship management and consumer-driven sales strategies."
         },
         {
           "number": 10,
           "text": "Despite this decision, do you see potential opportunities for us to work together in the future?",
-          "sources": [
-            8,
-            9
-          ],
-          "answer": "Yes, for organizational consulting or if we enhance analytical capabilities.",
-          "evidence": "There are areas where your capabilities would be a good fit for our needs."
+          "sources": [8, 9],
+          "answer": "Absolutely. We have other commercial initiatives where your expertise would be valuable, and if you developed stronger analytical capabilities and consumer goods expertise, we'd definitely consider you for future sales optimization work.",
+          "evidence": "We're looking at organizational consulting and potentially some leadership development work where your capabilities would be ideal. The sales methodology was solid - it's really about building the analytical depth and industry specialization."
         },
         {
           "number": 11,
           "text": "What would you need to see from us to feel more confident in choosing us for a future project?",
-          "sources": [
-            9
-          ],
-          "answer": "Advanced analytics platform, comprehensive market research capabilities, consumer goods expertise.",
-          "evidence": "These improvements would make you much more competitive for similar engagements."
+          "sources": [9],
+          "answer": "Advanced analytics platform, comprehensive market research capabilities, and deeper consumer goods expertise. If you could partner with data analytics firms or hire consultants with CPG industry experience, that would make a significant difference.",
+          "evidence": "We'd love to see you develop predictive analytics capabilities, access to consumer research data, and frameworks specifically for consumer goods sales optimization. The relationship and sales expertise is there - it's about building the analytical and industry-specific capabilities."
         }
       ]
     }

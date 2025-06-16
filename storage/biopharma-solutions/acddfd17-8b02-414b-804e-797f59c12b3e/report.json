@@ -24,12 +24,9 @@
         {
           "number": 1,
           "text": "Could you share the top factors influencing your decision?",
-          "sources": [
-            3,
-            5
-          ],
-          "answer": "The key factors were Pharmaceutical board relationships, regulatory expertise, proven pharma succession experience.",
-          "evidence": "The competitor demonstrated superior capabilities in these areas, which were critical for our success."
+          "sources": [3, 5],
+          "answer": "The primary factors were pharmaceutical board relationships, regulatory expertise, and proven experience with pharma CEO succession planning. Egon Zehnder had existing relationships with four of our board members and their pharmaceutical practice head had been involved in three major pharma CEO transitions in the past two years.",
+          "evidence": "We needed a partner who understood the unique challenges of pharmaceutical leadership, particularly around regulatory oversight and pipeline management. Egon Zehnder's consultant had worked directly with our board chair at his previous company and understood our specific governance challenges around drug development oversight."
         },
         {
           "number": 2,
@@ -40,41 +37,30 @@
             "Product fit/alignment with your specific needs"
           ],
           "note": "Pricing: Neutral, Service capability: Negative, Product fit: Negative",
-          "sources": [
-            5,
-            6
-          ],
-          "answer": "The comparison showed gaps in our offering, particularly in Limited pharma board connections, less regulatory knowledge, generic succession planning.",
-          "evidence": "While some aspects were competitive, the competitor's strengths in Extensive pharma board network, deep regulatory expertise, specialized pharma succession methodology were decisive."
+          "sources": [5, 6],
+          "answer": "Pricing was comparable - both proposals were within 10% of each other. Service capability strongly favored Egon Zehnder due to their pharmaceutical board network and regulatory expertise. Product fit was better with Egon Zehnder because their board effectiveness methodology was specifically designed for pharmaceutical companies.",
+          "evidence": "Your pricing was actually slightly lower, which we appreciated. However, Egon Zehnder's pharmaceutical practice had developed board assessment tools that included FDA regulatory competencies, pipeline oversight capabilities, and pharma-specific governance frameworks. Their approach felt purpose-built for our industry challenges."
         },
         {
           "number": 3,
           "text": "Were there any specific gaps or areas where our offering didn't meet your expectations?",
-          "sources": [
-            5,
-            6
-          ],
-          "answer": "The main gaps were Limited pharma board connections, less regulatory knowledge, generic succession planning.",
-          "evidence": "These gaps were significant because they directly impacted our ability to achieve our objectives."
+          "sources": [5, 6],
+          "answer": "The main gaps were in pharmaceutical regulatory expertise and board-level relationships within the pharma industry. Your team approached this as a general board effectiveness project rather than understanding the unique governance challenges in pharmaceutical companies.",
+          "evidence": "We operate in a highly regulated environment where board oversight of drug development, FDA interactions, and clinical trial governance are critical. Your proposal didn't address how board members would be assessed on their ability to oversee these pharma-specific functions, and we weren't confident your team understood the regulatory complexity."
         },
         {
           "number": 4,
           "text": "Without naming them, what aspects of the chosen provider's offering stood out to your team?",
-          "sources": [
-            5
-          ],
-          "answer": "Their key strengths were Extensive pharma board network, deep regulatory expertise, specialized pharma succession methodology.",
-          "evidence": "These capabilities directly addressed our most critical needs and concerns."
+          "sources": [5],
+          "answer": "Their pharmaceutical-specific board assessment methodology was impressive, including competency frameworks for drug development oversight, regulatory compliance, and clinical trial governance. They also had direct relationships with several pharmaceutical board members who could provide peer insights.",
+          "evidence": "They showed us assessment tools that evaluated board members on their understanding of FDA processes, ability to oversee clinical trials, and experience with drug commercialization decisions. This kind of pharma-specific expertise was exactly what we needed for our board effectiveness review."
         },
         {
           "number": 5,
           "text": "Did the competitor offer anything innovative or particularly compelling that tipped the scales?",
-          "sources": [
-            6,
-            7
-          ],
-          "answer": "Yes, Regulatory leadership assessment that evaluated board members' ability to navigate FDA and international regulatory challenges.",
-          "evidence": "This innovation provided significant value that we couldn't get elsewhere."
+          "sources": [6, 7],
+          "answer": "Yes, their pharmaceutical board peer network was exceptional. They could facilitate confidential discussions with board chairs from other major pharma companies about governance best practices and succession planning approaches.",
+          "evidence": "This peer network access was invaluable. They arranged for our board chair to have confidential conversations with board chairs from three other major pharmaceutical companies about CEO succession planning and board oversight of pipeline decisions. This kind of industry-specific peer learning was something we couldn't get elsewhere."
         }
       ]
     },
@@ -90,58 +76,44 @@
             "Responsiveness",
             "Understanding of your needs"
           ],
-          "sources": [
-            7,
-            8
-          ],
-          "answer": "Professional and insightful, good chemistry with our board.",
-          "evidence": "The team was professional and engaged throughout the process."
+          "sources": [7, 8],
+          "answer": "The experience was very positive from a relationship perspective. Communication was excellent, Robert and his team were highly responsive, and they demonstrated good understanding of our general governance needs. The gap was more in pharmaceutical industry expertise than relationship quality.",
+          "evidence": "Your team was professional, engaged, and clearly understood board dynamics and governance principles. The relationship management was actually one of your strengths - we felt like you were genuinely invested in our success and board effectiveness."
         },
         {
           "number": 7,
           "text": "Were there moments in the process where our approach stood out, either positively or negatively?",
-          "sources": [
-            8
-          ],
-          "answer": "Board assessment methodology was comprehensive, but lacked pharma-specific elements.",
-          "evidence": "While there were positive aspects, some areas needed improvement."
+          "sources": [8],
+          "answer": "Your board assessment methodology and governance framework were excellent - very comprehensive and well-designed. However, when we discussed pharmaceutical-specific governance challenges, the limitations became apparent.",
+          "evidence": "The general board effectiveness assessment you proposed was probably the most thorough we'd seen. But when we started talking about things like clinical trial oversight, FDA advisory committee preparation, and pipeline risk assessment, it felt like we were having to educate your team about pharmaceutical governance."
         },
         {
           "number": 8,
           "text": "How would you describe the chemistry and collaboration between your team and ours?",
-          "sources": [
-            7
-          ],
-          "answer": "The chemistry and collaboration were positive throughout the engagement.",
-          "evidence": "Both teams worked well together and maintained professional relationships."
+          "sources": [7],
+          "answer": "Excellent chemistry and collaboration. Your team worked well with our board members, understood our culture, and integrated seamlessly with our governance processes.",
+          "evidence": "The collaboration was smooth throughout. Your team worked well with our board chair, our governance committee, and even our chief medical officer who was involved in the process. Everyone felt comfortable with your approach."
         },
         {
           "number": 9,
           "text": "Did any specific interactions, meetings, or presentations stand out positively or negatively?",
-          "sources": [
-            9
-          ],
-          "answer": "The initial assessment and proposal presentations were well-executed and professional.",
-          "evidence": "The team demonstrated good preparation and understanding of our needs."
+          "sources": [9],
+          "answer": "The initial board assessment workshop was outstanding and really helped clarify our governance priorities. The final presentation was professional but lacked pharmaceutical industry context.",
+          "evidence": "That first workshop with our board members was incredibly valuable - it helped us identify specific areas where we needed to strengthen our oversight capabilities. But the final proposal felt generic and didn't address our unique challenges around drug development governance."
         },
         {
           "number": 10,
           "text": "Despite this decision, do you see potential opportunities for us to work together in the future?",
-          "sources": [
-            8,
-            9
-          ],
-          "answer": "Yes, for general board advisory or if we develop pharma expertise.",
-          "evidence": "There are areas where your capabilities would be a good fit for our needs."
+          "sources": [8, 9],
+          "answer": "Absolutely. We have other governance needs where your expertise would be perfect, and if you developed stronger pharmaceutical industry capabilities, we'd definitely consider you for future board-related work.",
+          "evidence": "We're looking at board effectiveness for our subsidiaries and potentially some leadership development work where your governance expertise would be ideal. The core methodology was strong - it's really about building the pharma-specific knowledge."
         },
         {
           "number": 11,
           "text": "What would you need to see from us to feel more confident in choosing us for a future project?",
-          "sources": [
-            9
-          ],
-          "answer": "Pharmaceutical industry relationships, regulatory expertise, pharma-specific board assessment tools.",
-          "evidence": "These improvements would make you much more competitive for similar engagements."
+          "sources": [9],
+          "answer": "Deeper pharmaceutical industry expertise, relationships with pharma board members, and governance frameworks that address regulatory oversight and drug development governance. If you could partner with former pharma executives or FDA officials, that would make a significant difference.",
+          "evidence": "We'd love to see you develop pharma-specific board assessment tools, maybe partner with former pharma CEOs or FDA commissioners, and build case studies from pharmaceutical board effectiveness work. The relationship and governance expertise is already there."
         }
       ]
     }

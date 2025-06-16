@@ -24,12 +24,9 @@
         {
           "number": 1,
           "text": "Could you share the top factors influencing your decision?",
-          "sources": [
-            3,
-            5
-          ],
-          "answer": "The key factors were Technology platform integration, cost efficiency, proven hospitality implementations.",
-          "evidence": "The competitor demonstrated superior capabilities in these areas, which were critical for our success."
+          "sources": [3, 5],
+          "answer": "The primary factors were technology platform integration capabilities, cost structure, and proven hospitality industry experience. PwC had a much stronger technology backbone and their pricing was significantly more competitive - about 25% lower than your proposal. They also brought specific case studies from luxury hotel chains that were directly relevant to our challenges.",
+          "evidence": "We needed a partner who could seamlessly integrate with our existing property management systems and guest experience platforms. PwC demonstrated they had worked with three major luxury hotel groups on similar talent management transformations, and their technology integration approach was much more sophisticated than what we saw from Korn Ferry."
         },
         {
           "number": 2,
@@ -40,41 +37,30 @@
             "Product fit/alignment with your specific needs"
           ],
           "note": "Pricing: Negative, Service capability: Negative, Product fit: Neutral",
-          "sources": [
-            5,
-            6
-          ],
-          "answer": "The comparison showed gaps in our offering, particularly in Higher pricing, limited technology integration experience, less hospitality expertise.",
-          "evidence": "While some aspects were competitive, the competitor's strengths in Strong technology integration, cost-effective delivery, hospitality industry experience were decisive."
+          "sources": [5, 6],
+          "answer": "Pricing was definitely a challenge - you were about 25% higher than PwC, which was significant for our budget. Service capability favored PwC because of their technology integration expertise and hospitality industry depth. Product fit was neutral - both approaches could work, but PwC's was more tailored to hospitality operations.",
+          "evidence": "Your pricing included a lot of premium consulting hours that we weren't sure we needed. PwC's approach was more streamlined and focused specifically on hospitality talent management challenges. They had pre-built modules for things like seasonal staffing, guest service excellence, and multi-property coordination that would have saved us months of customization."
         },
         {
           "number": 3,
           "text": "Were there any specific gaps or areas where our offering didn't meet your expectations?",
-          "sources": [
-            5,
-            6
-          ],
-          "answer": "The main gaps were Higher pricing, limited technology integration experience, less hospitality expertise.",
-          "evidence": "These gaps were significant because they directly impacted our ability to achieve our objectives."
+          "sources": [5, 6],
+          "answer": "The main gaps were in technology integration capabilities and hospitality-specific expertise. Your team seemed to approach this as a general talent management project rather than understanding the unique challenges of luxury hospitality operations.",
+          "evidence": "We operate 24/7 across multiple time zones with highly seasonal staffing needs and very specific guest service standards. PwC understood that our talent management system needed to handle things like concierge succession planning, seasonal F&B staffing models, and guest preference tracking. Your proposal felt more generic and would have required significant customization."
         },
         {
           "number": 4,
           "text": "Without naming them, what aspects of the chosen provider's offering stood out to your team?",
-          "sources": [
-            5
-          ],
-          "answer": "Their key strengths were Strong technology integration, cost-effective delivery, hospitality industry experience.",
-          "evidence": "These capabilities directly addressed our most critical needs and concerns."
+          "sources": [5],
+          "answer": "Their integrated technology platform was impressive - it connected recruitment, onboarding, performance management, and succession planning in one system that could interface with our property management systems. They also had hospitality-specific competency models and assessment tools.",
+          "evidence": "They showed us how their system could track guest service scores alongside employee performance data, and how it could automatically flag high-potential staff for advancement based on both operational metrics and guest feedback. This kind of hospitality-specific functionality was exactly what we needed."
         },
         {
           "number": 5,
           "text": "Did the competitor offer anything innovative or particularly compelling that tipped the scales?",
-          "sources": [
-            6,
-            7
-          ],
-          "answer": "Yes, Integrated talent management platform that connected recruitment, development, and succession planning in one system.",
-          "evidence": "This innovation provided significant value that we couldn't get elsewhere."
+          "sources": [6, 7],
+          "answer": "Yes, their predictive analytics for seasonal staffing was brilliant. The system could forecast staffing needs based on booking patterns, historical guest service data, and local events, then automatically trigger recruitment and training workflows.",
+          "evidence": "This was a game-changer for us. Managing seasonal fluctuations is one of our biggest operational challenges, and their system could predict when we'd need to start recruiting for summer season based on booking trends and automatically begin the process. It would save us weeks of manual planning and ensure we're never understaffed during peak periods."
         }
       ]
     },
@@ -90,58 +76,44 @@
             "Responsiveness",
             "Understanding of your needs"
           ],
-          "sources": [
-            7,
-            8
-          ],
-          "answer": "Excellent relationship and cultural understanding throughout the process.",
-          "evidence": "The team was professional and engaged throughout the process."
+          "sources": [7, 8],
+          "answer": "The experience was very positive from a relationship standpoint. Communication was excellent, Maria and her team were always responsive, and they clearly understood our culture and values. The challenge was more around industry-specific expertise than relationship quality.",
+          "evidence": "Your team was professional, engaged, and really took the time to understand our company culture and what makes our guest experience special. The relationship side was actually one of your strengths - we felt like you genuinely cared about our success."
         },
         {
           "number": 7,
           "text": "Were there moments in the process where our approach stood out, either positively or negatively?",
-          "sources": [
-            8
-          ],
-          "answer": "Succession planning methodology was impressive, but technology integration felt limited.",
-          "evidence": "While there were positive aspects, some areas needed improvement."
+          "sources": [8],
+          "answer": "Your cultural assessment and leadership development methodology was outstanding - probably the best we've seen. However, when we got into the technical requirements and hospitality-specific needs, the gaps became apparent.",
+          "evidence": "The leadership assessment process you proposed was incredibly thorough and would have been perfect for developing our management team. But when we started discussing things like seasonal workforce planning and guest service integration, it felt like we were having to educate your team about hospitality operations."
         },
         {
           "number": 8,
           "text": "How would you describe the chemistry and collaboration between your team and ours?",
-          "sources": [
-            7
-          ],
-          "answer": "The chemistry and collaboration were positive throughout the engagement.",
-          "evidence": "Both teams worked well together and maintained professional relationships."
+          "sources": [7],
+          "answer": "Excellent chemistry and collaboration. Your team integrated well with our leadership team and really understood our values around guest experience and employee development.",
+          "evidence": "The collaboration was seamless. Your team worked well with our CHRO, our property managers, and even our guest services directors. Everyone felt comfortable and engaged in the process."
         },
         {
           "number": 9,
           "text": "Did any specific interactions, meetings, or presentations stand out positively or negatively?",
-          "sources": [
-            9
-          ],
-          "answer": "The initial assessment and proposal presentations were well-executed and professional.",
-          "evidence": "The team demonstrated good preparation and understanding of our needs."
+          "sources": [9],
+          "answer": "The initial stakeholder workshop was exceptional - it really helped us clarify what we needed from a talent management transformation. The final presentation was professional but felt generic for our industry.",
+          "evidence": "That first workshop where you brought together all our department heads was incredibly valuable. It helped us get aligned on priorities across properties. But the final proposal presentation used a lot of generic examples that didn't resonate with our hospitality-specific challenges."
         },
         {
           "number": 10,
           "text": "Despite this decision, do you see potential opportunities for us to work together in the future?",
-          "sources": [
-            8,
-            9
-          ],
-          "answer": "Yes, for leadership development or organizational strategy work.",
-          "evidence": "There are areas where your capabilities would be a good fit for our needs."
+          "sources": [8, 9],
+          "answer": "Absolutely. We have leadership development needs that would be perfect for your expertise, and if you developed stronger hospitality industry capabilities, we'd definitely want to work with you on future talent initiatives.",
+          "evidence": "We're planning a leadership development program for our property managers and department heads where your cultural assessment and development methodology would be ideal. We were really impressed with that aspect of your approach."
         },
         {
           "number": 11,
           "text": "What would you need to see from us to feel more confident in choosing us for a future project?",
-          "sources": [
-            9
-          ],
-          "answer": "Technology integration capabilities, more competitive pricing, hospitality industry expertise.",
-          "evidence": "These improvements would make you much more competitive for similar engagements."
+          "sources": [9],
+          "answer": "Deeper hospitality industry expertise, stronger technology integration capabilities, and more competitive pricing for hospitality-specific solutions. If you could partner with hospitality technology specialists or hire someone with luxury hotel operations experience, that would make a huge difference.",
+          "evidence": "We'd love to see you develop hospitality-specific competency models, assessment tools, and maybe even partner with property management system providers. The relationship and cultural expertise is already there - it's really about building the industry-specific capabilities."
         }
       ]
     }
