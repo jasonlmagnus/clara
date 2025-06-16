@@ -177,8 +177,8 @@ export default function ReportsView() {
 
       <Tabs defaultValue="generate" className="space-y-6">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="generate">Generate Report</TabsTrigger>
-          <TabsTrigger value="existing">Existing Reports</TabsTrigger>
+          <TabsTrigger value="existing">Reports</TabsTrigger>
+          <TabsTrigger value="generate">Create Report</TabsTrigger>
           <TabsTrigger value="templates">Templates</TabsTrigger>
         </TabsList>
 
