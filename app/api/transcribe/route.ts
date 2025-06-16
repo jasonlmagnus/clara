@@ -36,6 +36,8 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
+    const metadataRaw = formData.get("metadata") as string | null;
+    const metadata = metadataRaw ? JSON.parse(metadataRaw) : null;
 
     if (!file) {
       return NextResponse.json({ error: "No file uploaded." }, { status: 400 });
@@ -143,6 +145,7 @@ export async function POST(req: NextRequest) {
       report_id: reportId,
       original_filename: file.name,
       created_at: timestamp,
+      metadata,
     };
 
     // Save both JSON report and transcript to storage
