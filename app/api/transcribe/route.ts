@@ -108,24 +108,6 @@ export async function POST(req: NextRequest) {
     console.log(`Final transcript length: ${transcriptText.length} characters`);
     console.log(`Transcript content preview: "${transcriptText.substring(0, 200)}..."`);
 
-    // TEMPORARY: If transcript is empty, use test data to verify GPT-4 processing
-    if (!transcriptText || transcriptText.trim().length === 0) {
-      console.log("Transcript is empty, using test data...");
-      transcriptText = `
-        Interviewer: Thank you for taking the time to speak with us today. Could you share the top factors that influenced your decision?
-        
-        Client: Well, the main factors were really around implementation confidence and prior sector experience. The chosen provider had more relevant case studies in our industry, and their delivery lead had deep retail experience which made us feel more assured about the project.
-        
-        Interviewer: How did our proposal compare to the chosen provider in terms of pricing, service capability, and product fit?
-        
-        Client: In terms of pricing, it was pretty neutral overall. Both proposals were similar in cost, though yours offered more flexible payment terms which we appreciated. For service capability, it was slightly less compelling - the other provider had a named delivery lead with experience that matched our industry which tipped the balance. But in terms of product fit, it was actually positive. Your product felt more modern and adaptable, and we were particularly impressed with the user interface.
-        
-        Interviewer: Were there any specific gaps where our offering didn't meet expectations?
-        
-        Client: Integration with our payroll systems was a concern as yours would have required custom work. We were also unsure about the level of post-implementation support compared to the competitor.
-      `;
-    }
-
     // Read the prompt and JSON template
     const promptsDir = path.join(process.cwd(), "prompts");
     const dataDir = path.join(process.cwd(), "data");
@@ -196,29 +178,55 @@ ${'='.repeat(50)}
 
 function splitAudio(filePath: string, outputDir: string): Promise<string[]> {
   return new Promise((resolve, reject) => {
-    const chunkDuration = 10 * 60; // 10 minutes
+    const chunkDuration = 10 * 60; // 10 minutes in seconds
     const chunkPaths: string[] = [];
-    let chunkIndex = 0;
 
     ffmpeg.ffprobe(filePath, (err, metadata) => {
-      if (err) return reject(err);
-      const totalDuration = metadata.format.duration;
-      if (!totalDuration) return reject(new Error("Could not determine audio duration."));
-
-      const command = ffmpeg(filePath)
-        .outputOptions([
-          "-f", "segment",
-          "-segment_time", `${chunkDuration}`,
-          "-c", "copy",
-        ])
-        .on("end", () => resolve(chunkPaths))
-        .on("error", (err) => reject(err))
-        .on("filenames", (filenames: string[]) => {
-          chunkPaths.push(...filenames.map(name => path.join(outputDir, name)));
-        });
+      if (err) {
+        return reject(new Error(`Failed to get audio duration: ${err.message}`));
+      }
       
-      const outputPathPattern = path.join(outputDir, 'chunk-%03d.mp4');
-      command.output(outputPathPattern).run();
+      const duration = metadata.format.duration;
+      if (typeof duration === 'undefined') {
+        return reject(new Error("Could not determine audio duration."));
+      }
+
+      // If the file is shorter than the chunk duration, no need to split.
+      // Return the original file path in an array.
+      if (duration <= chunkDuration) {
+        console.log("Audio is shorter than chunk duration, no splitting needed.");
+        resolve([filePath]);
+        return;
+      }
+      
+      const outputPattern = path.join(outputDir, "chunk-%03d.wav");
+      
+      ffmpeg(filePath)
+        .outputOptions([
+          '-f segment',
+          `-segment_time ${chunkDuration}`,
+          '-c copy',
+        ])
+        .output(outputPattern)
+        .on('end', () => {
+          // After splitting, find all the generated chunk files
+          fs.readdir(outputDir)
+            .then(files => {
+              const generatedChunks = files
+                .filter(file => file.startsWith('chunk-') && file.endsWith('.wav'))
+                .map(file => path.join(outputDir, file))
+                .sort(); // Sort to maintain order
+              console.log(`Successfully split into ${generatedChunks.length} chunks.`);
+              resolve(generatedChunks);
+            })
+            .catch(readErr => {
+              reject(new Error(`Failed to read chunk files from output directory: ${readErr.message}`));
+            });
+        })
+        .on('error', (splitErr) => {
+          reject(new Error(`Error during audio splitting: ${splitErr.message}`));
+        })
+        .run();
     });
   });
 } 
