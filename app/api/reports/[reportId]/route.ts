@@ -2,6 +2,23 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs-extra";
 import path from "path";
 
+async function findReportById(reportId: string): Promise<string | null> {
+  const storageDir = path.join(process.cwd(), "storage");
+  const companies = await fs.readdir(storageDir, { withFileTypes: true });
+
+  for (const company of companies) {
+    if (company.isDirectory()) {
+      const companyPath = path.join(storageDir, company.name);
+      const reportPath = path.join(companyPath, reportId);
+      if (await fs.pathExists(reportPath)) {
+        return reportPath;
+      }
+    }
+  }
+
+  return null;
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ reportId: string }> }
@@ -16,21 +33,28 @@ export async function GET(
       );
     }
 
-    const storageDir = path.join(process.cwd(), "storage");
-    const reportFilePath = path.join(storageDir, `${reportId}.json`);
+    const reportPath = await findReportById(reportId);
 
-    // Check if the report file exists
-    const exists = await fs.pathExists(reportFilePath);
-    if (!exists) {
+    if (!reportPath) {
       return NextResponse.json(
         { error: "Report not found" },
         { status: 404 }
       );
     }
 
-    // Read and return the report data
+    const reportFilePath = path.join(reportPath, "report.json");
+    const metadataFilePath = path.join(reportPath, "metadata.json");
+
     const reportData = await fs.readJson(reportFilePath);
-    return NextResponse.json(reportData);
+    const metadata = await fs.readJson(metadataFilePath);
+    
+    // Combine metadata and report data for the response
+    const combinedData = {
+      ...metadata,
+      ...reportData
+    };
+
+    return NextResponse.json(combinedData);
 
   } catch (error) {
     console.error("Error fetching report:", error);

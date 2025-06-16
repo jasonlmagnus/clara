@@ -76,7 +76,10 @@ export default function DataInput() {
     }
   };
 
-  const handleMetadataChange = (field: string, value: string) => {
+  const handleMetadataChange = (
+    field: keyof typeof metadata,
+    value: string
+  ) => {
     setMetadata((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -91,13 +94,16 @@ export default function DataInput() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!metadataSaved) {
-      setError("Please save metadata before analyzing.");
-      setActiveTab("metadata");
-      return;
-    }
     if (!file) {
       setError("Please select a file to analyze.");
+      return;
+    }
+
+    if (!metadata.company) {
+      setError(
+        "Please complete the company name in the Metadata tab before analyzing."
+      );
+      setActiveTab("metadata");
       return;
     }
 
@@ -178,15 +184,7 @@ export default function DataInput() {
 
       <Tabs
         value={activeTab}
-        onValueChange={(val) => {
-          if (!metadataSaved && val !== "metadata") {
-            setError("Please save metadata before proceeding.");
-            setActiveTab("metadata");
-          } else {
-            setError(null);
-            setActiveTab(val);
-          }
-        }}
+        onValueChange={setActiveTab}
         className="space-y-6"
       >
         <TabsList className="grid w-full grid-cols-4">
@@ -195,6 +193,102 @@ export default function DataInput() {
           <TabsTrigger value="recording">Recording</TabsTrigger>
           <TabsTrigger value="questions">Questions</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="metadata">
+          <Card>
+            <CardHeader>
+              <CardTitle>Deal Management</CardTitle>
+              <CardDescription>
+                Enter the metadata for the deal you are analyzing.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="company">Company Name</Label>
+                  <Input
+                    id="company"
+                    placeholder="e.g. Acme Inc."
+                    value={metadata.company}
+                    onChange={(e) =>
+                      handleMetadataChange("company", e.target.value)
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="deal-value">Deal Value</Label>
+                  <Input
+                    id="deal-value"
+                    placeholder="e.g. $100,000"
+                    value={metadata.dealValue}
+                    onChange={(e) =>
+                      handleMetadataChange("dealValue", e.target.value)
+                    }
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="account-lead">Account Lead</Label>
+                  <Input
+                    id="account-lead"
+                    placeholder="e.g. John Doe"
+                    value={metadata.accountLead}
+                    onChange={(e) =>
+                      handleMetadataChange("accountLead", e.target.value)
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="interview-date">Interview Date</Label>
+                  <Input
+                    id="interview-date"
+                    type="date"
+                    value={metadata.interviewDate}
+                    onChange={(e) =>
+                      handleMetadataChange("interviewDate", e.target.value)
+                    }
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="competitor">Competitor</Label>
+                  <Input
+                    id="competitor"
+                    placeholder="e.g. Globex Corp."
+                    value={metadata.competitor}
+                    onChange={(e) =>
+                      handleMetadataChange("competitor", e.target.value)
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="industry">Industry</Label>
+                  <Input
+                    id="industry"
+                    placeholder="e.g. Technology"
+                    value={metadata.industry}
+                    onChange={(e) =>
+                      handleMetadataChange("industry", e.target.value)
+                    }
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="notes">Notes</Label>
+                <Textarea
+                  id="notes"
+                  placeholder="Any relevant notes about this deal or interview."
+                  value={metadata.notes}
+                  onChange={(e) =>
+                    handleMetadataChange("notes", e.target.value)
+                  }
+                />
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
 
         <TabsContent value="transcript" className="space-y-6">
           <Card>
@@ -247,118 +341,93 @@ export default function DataInput() {
         <TabsContent value="recording" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Mic className="h-5 w-5" />
-                Interview Recording
-              </CardTitle>
+              <CardTitle>Upload Recording</CardTitle>
               <CardDescription>
-                Upload recording files or provide links to MS Teams recordings
+                Upload an audio or video file of the interview.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {!metadata.company ? (
+                <div className="flex flex-col items-center justify-center text-center p-8 border-2 border-dashed rounded-lg">
+                  <p className="mb-4 text-muted-foreground">
+                    Please provide a Company Name in the 'Metadata' tab before
+                    uploading a recording.
+                  </p>
+                  <Button onClick={() => setActiveTab("metadata")}>
+                    Go to Metadata
+                  </Button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="file-upload">Audio/Video File</Label>
+                    <div className="flex items-center space-x-4">
+                      <Input
+                        id="file-upload"
+                        type="file"
+                        onChange={handleFileChange}
+                        className="flex-grow"
+                        accept="audio/*,video/*"
+                      />
+                    </div>
+                    {file && (
+                      <div className="text-sm text-muted-foreground">
+                        Selected file: {file.name} (
+                        {(file.size / 1024 / 1024).toFixed(2)} MB)
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex justify-end space-x-4">
+                    <Button type="submit" disabled={isProcessing || !file}>
+                      {isProcessing && (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      )}
+                      {isProcessing ? "Analyzing..." : "Analyze Recording"}
+                    </Button>
+                  </div>
+                </form>
+              )}
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Recording Link</CardTitle>
+              <CardDescription>
+                Provide a link to a MS Teams recording or email it to marketing
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid gap-6 md:grid-cols-2">
-                  <div className="space-y-4">
-                    <h3 className="font-medium">Upload Recording</h3>
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                      <Mic className="h-8 w-8 mx-auto text-gray-400 mb-2" />
-                      {file ? (
-                        <p className="font-semibold text-primary">
-                          {file.name}
-                        </p>
-                      ) : (
-                        <>
-                          <p className="text-sm font-medium mb-1">
-                            Drop audio file here
-                          </p>
-                          <p className="text-xs text-muted-foreground mb-3">
-                            MP3, WAV, M4A up to 100MB
-                          </p>
-                        </>
-                      )}
-                      <input
-                        type="file"
-                        className="hidden"
-                        id="audio-upload"
-                        onChange={handleFileChange}
-                        accept=".mp4,.mp3,.wav,.m4a"
-                      />
-                      <label htmlFor="audio-upload">
-                        <Button size="sm" type="button" asChild>
-                          <span>Choose File</span>
-                        </Button>
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <h3 className="font-medium">Recording Link</h3>
-                    <div className="space-y-3">
-                      <div className="space-y-2">
-                        <Label htmlFor="recording-link">
-                          MS Teams Recording URL
-                        </Label>
-                        <Input
-                          id="recording-link"
-                          placeholder="https://teams.microsoft.com/..."
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="recording-email">
-                          Or Email to Marketing
-                        </Label>
-                        <Input
-                          id="recording-email"
-                          placeholder="marketing@company.com"
-                          disabled
-                          value="marketing@company.com"
-                        />
-                      </div>
-                      <Button
-                        variant="outline"
-                        className="w-full"
-                        type="button"
-                      >
-                        <Link className="h-4 w-4 mr-2" />
-                        Send Link
-                      </Button>
-                    </div>
-                  </div>
+              <div className="space-y-3">
+                <div className="space-y-2">
+                  <Label htmlFor="recording-link">MS Teams Recording URL</Label>
+                  <Input
+                    id="recording-link"
+                    placeholder="https://teams.microsoft.com/..."
+                  />
                 </div>
-
-                {error && (
-                  <div
-                    className="p-4 text-sm text-red-700 bg-red-100 border-l-4 border-red-500"
-                    role="alert"
-                  >
-                    <p className="font-bold">Error</p>
-                    <p>{error}</p>
-                  </div>
-                )}
-
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <p className="text-sm text-blue-800">
-                    <strong>Note:</strong> Recordings will be automatically
-                    deleted once the transcript is generated to ensure data
-                    privacy and compliance.
-                  </p>
+                <div className="space-y-2">
+                  <Label htmlFor="recording-email">Or Email to Marketing</Label>
+                  <Input
+                    id="recording-email"
+                    placeholder="marketing@company.com"
+                    disabled
+                    value="marketing@company.com"
+                  />
                 </div>
-
-                <Button
-                  type="submit"
-                  disabled={isProcessing || !file}
-                  className="w-full"
-                >
-                  {isProcessing ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Analyzing...
-                    </>
-                  ) : (
-                    "Analyze Interview"
-                  )}
+                <Button variant="outline" className="w-full" type="button">
+                  <Link className="h-4 w-4 mr-2" />
+                  Send Link
                 </Button>
-              </form>
+              </div>
+
+              <div className="bg-blue-50 p-4 rounded-lg">
+                <p className="text-sm text-blue-800">
+                  <strong>Note:</strong> Recordings will be automatically
+                  deleted once the transcript is generated to ensure data
+                  privacy and compliance.
+                </p>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -472,117 +541,6 @@ export default function DataInput() {
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
-
-        <TabsContent value="metadata" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Deal Metadata</CardTitle>
-              <CardDescription>
-                Additional information about the opportunity and interview
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid gap-4 md:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="company">Company Name</Label>
-                  <Input
-                    id="company"
-                    placeholder="Enter company name"
-                    value={metadata.company}
-                    onChange={(e) =>
-                      handleMetadataChange("company", e.target.value)
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="deal-value">Deal Value</Label>
-                  <Input
-                    id="deal-value"
-                    placeholder="$0.00"
-                    value={metadata.dealValue}
-                    onChange={(e) =>
-                      handleMetadataChange("dealValue", e.target.value)
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="account-lead">Account Lead</Label>
-                  <Input
-                    id="account-lead"
-                    placeholder="Enter account lead name"
-                    value={metadata.accountLead}
-                    onChange={(e) =>
-                      handleMetadataChange("accountLead", e.target.value)
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="interview-date">Interview Date</Label>
-                  <Input
-                    id="interview-date"
-                    type="date"
-                    value={metadata.interviewDate}
-                    onChange={(e) =>
-                      handleMetadataChange("interviewDate", e.target.value)
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="competitor">Primary Competitor</Label>
-                  <Select
-                    value={metadata.competitor}
-                    onValueChange={(v) => handleMetadataChange("competitor", v)}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select competitor" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="competitor-a">Competitor A</SelectItem>
-                      <SelectItem value="competitor-b">Competitor B</SelectItem>
-                      <SelectItem value="competitor-c">Competitor C</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="industry">Industry</Label>
-                  <Select
-                    value={metadata.industry}
-                    onValueChange={(v) => handleMetadataChange("industry", v)}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select industry" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="technology">Technology</SelectItem>
-                      <SelectItem value="healthcare">Healthcare</SelectItem>
-                      <SelectItem value="finance">Finance</SelectItem>
-                      <SelectItem value="manufacturing">
-                        Manufacturing
-                      </SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="notes">Additional Notes</Label>
-                <Textarea
-                  id="notes"
-                  placeholder="Any additional context or notes about the opportunity..."
-                  className="min-h-[100px]"
-                  value={metadata.notes}
-                  onChange={(e) => handleMetadataChange("notes", e.target.value)}
-                />
-              </div>
-
-              <Button className="w-full" onClick={saveMetadata}>
-                Save Metadata
-              </Button>
-              </CardContent>
-            </Card>
         </TabsContent>
       </Tabs>
     </div>

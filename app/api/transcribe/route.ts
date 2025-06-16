@@ -10,6 +10,10 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+function sanitizeFilename(name: string) {
+  return name.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+}
+
 // Note: Vercel has a 4.5MB limit on the request body for serverless functions on the Hobby plan.
 // For larger files, this needs to be deployed on a platform that supports larger request bodies,
 // or use a different upload method like pre-signed URLs to S3.
@@ -37,10 +41,14 @@ export async function POST(req: NextRequest) {
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
     const metadataRaw = formData.get("metadata") as string | null;
-    const metadata = metadataRaw ? JSON.parse(metadataRaw) : null;
+    const clientMetadata = metadataRaw ? JSON.parse(metadataRaw) : {};
 
     if (!file) {
       return NextResponse.json({ error: "No file uploaded." }, { status: 400 });
+    }
+    
+    if (!clientMetadata.company) {
+      return NextResponse.json({ error: "Company name is missing from metadata." }, { status: 400 });
     }
 
     const fileArrayBuffer = await file.arrayBuffer();
@@ -134,41 +142,52 @@ export async function POST(req: NextRequest) {
       throw new Error("Failed to generate JSON from transcript.");
     }
 
-    // Parse the JSON and add metadata
-    const parsedJson = JSON.parse(jsonContent);
     const reportId = crypto.randomUUID();
     const timestamp = new Date().toISOString();
     
-    // Add metadata to the JSON
-    const reportData = {
-      ...parsedJson,
+    const companyNameSanitized = sanitizeFilename(clientMetadata.company);
+    const reportDirPath = path.join(process.cwd(), "storage", companyNameSanitized, reportId);
+    await fs.ensureDir(reportDirPath);
+
+    // Metadata to be saved
+    const fullMetadata = {
       report_id: reportId,
       original_filename: file.name,
       created_at: timestamp,
-      metadata,
+      ...clientMetadata,
     };
+    
+    // Save metadata
+    const metadataFilePath = path.join(reportDirPath, "metadata.json");
+    await fs.writeFile(metadataFilePath, JSON.stringify(fullMetadata, null, 2));
 
-    // Save both JSON report and transcript to storage
-    const storageDir = path.join(process.cwd(), "storage");
-    await fs.ensureDir(storageDir);
+    // The report from GPT-4 is the report content
+    const reportJson = JSON.parse(jsonContent);
+    const reportFilePath = path.join(reportDirPath, "report.json");
+    await fs.writeFile(reportFilePath, JSON.stringify(reportJson, null, 2));
     
-    // Save JSON report
-    const jsonFilePath = path.join(storageDir, `${reportId}.json`);
-    await fs.writeFile(jsonFilePath, JSON.stringify(reportData, null, 2));
-    
-    // Save raw transcript as .txt file
-    const transcriptFilePath = path.join(storageDir, `${reportId}_transcript.txt`);
+    // Save raw transcript
+    const transcriptFilePath = path.join(reportDirPath, "transcript.txt");
     const transcriptHeader = `CLARA Interview Transcript
 Generated: ${new Date(timestamp).toLocaleString()}
 Original File: ${file.name}
 Report ID: ${reportId}
+Company: ${clientMetadata.company}
 
 ${'='.repeat(50)}
 
 `;
     await fs.writeFile(transcriptFilePath, transcriptHeader + transcriptText);
+    
+    // The response to the client should contain enough info to identify the report
+    const responsePayload = {
+      report_id: reportId,
+      company: clientMetadata.company,
+      original_filename: file.name,
+      created_at: timestamp,
+    };
 
-    return NextResponse.json(reportData);
+    return NextResponse.json(responsePayload);
   } catch (error) {
     console.error("Error in transcription/analysis:", error);
     const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
