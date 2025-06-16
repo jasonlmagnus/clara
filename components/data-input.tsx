@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -52,6 +52,7 @@ export default function DataInput() {
   const [analysisResult, setAnalysisResult] = useState<any | null>(null);
   const [transcript, setTranscript] = useState("");
   const [dragActive, setDragActive] = useState(false);
+  const [clients, setClients] = useState<string[]>([]);
 
   const [metadata, setMetadata] = useState({
     company: "",
@@ -63,6 +64,21 @@ export default function DataInput() {
     notes: "",
   });
   const [activeTab, setActiveTab] = useState("metadata");
+
+  useEffect(() => {
+    const fetchClients = async () => {
+      try {
+        const res = await fetch("/api/clients");
+        if (res.ok) {
+          const data = await res.json();
+          setClients(data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch clients", err);
+      }
+    };
+    fetchClients();
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -301,29 +317,40 @@ export default function DataInput() {
           </TabsContent>
 
           <TabsContent value="upload" className="space-y-6">
-            {!metadata.company ? (
-              <div className="flex flex-col items-center justify-center text-center p-8 border-2 border-dashed rounded-lg">
-                <p className="mb-4 text-muted-foreground">
-                  Please provide a Company Name in the 'Metadata' tab before
-                  uploading data.
-                </p>
-                <Button onClick={() => setActiveTab("metadata")}>
-                  Go to Metadata
-                </Button>
-              </div>
-            ) : (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Upload className="h-5 w-5" />
-                    Upload Data
-                  </CardTitle>
-                  <CardDescription>
-                    Upload a recording or transcript, or paste the transcript
-                    text.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Upload className="h-5 w-5" />
+                  Upload Data
+                </CardTitle>
+                <CardDescription>
+                  Upload a recording or transcript, or paste the transcript text.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Client</Label>
+                  <Select
+                    value={metadata.company}
+                    onValueChange={(value) => handleMetadataChange("company", value)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select client" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {clients.map((client) => (
+                        <SelectItem key={client} value={client}>
+                          {client}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {!metadata.company && (
+                    <p className="text-sm text-muted-foreground">
+                      Choose an existing client or add one in the Metadata tab.
+                    </p>
+                  )}
+                </div>
                   <div className="space-y-2">
                     <Label htmlFor="file-upload">
                       Audio, Video or Document File
@@ -393,7 +420,9 @@ export default function DataInput() {
                   <div className="flex justify-end space-x-4">
                     <Button
                       type="submit"
-                      disabled={isProcessing || (!file && !transcript.trim())}
+                      disabled={
+                        isProcessing || (!file && !transcript.trim()) || !metadata.company
+                      }
                     >
                       {isProcessing && (
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -403,8 +432,7 @@ export default function DataInput() {
                   </div>
                 </CardContent>
               </Card>
-            )}
-          </TabsContent>
+            </TabsContent>
 
           <TabsContent value="questions" className="space-y-6">
             <Card>

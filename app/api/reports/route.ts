@@ -24,7 +24,7 @@ async function findReports(directory: string): Promise<any[]> {
               
               allReports.push({
                 report_id: metadata.report_id,
-                title: metadata.original_filename.replace(/\.(mp4|mp3|wav|m4a)$/i, ''),
+                title: `${metadata.company} – ${metadata.original_filename.replace(/\.(mp4|mp3|wav|m4a)$/i, '')}`,
                 type: "Individual Analysis", // Placeholder
                 status: "Complete", // Placeholder
                 generated: metadata.created_at,
