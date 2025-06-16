@@ -20,8 +20,35 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { useEffect, useState } from "react";
+import { useClientStore } from "@/lib/client-store";
 
 export default function Dashboard() {
+  const selectedClient = useClientStore((s) => s.selectedClient);
+  const [overview, setOverview] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    const fetchOverview = async () => {
+      const query = selectedClient
+        ? `?client=${encodeURIComponent(selectedClient)}`
+        : "";
+      try {
+        const res = await fetch(`/api/analysis/overview${query}`);
+        if (res.ok) {
+          const data = await res.json();
+          setOverview(data.percentages || {});
+        }
+      } catch (err) {
+        console.error("Failed to load overview", err);
+      }
+    };
+    fetchOverview();
+  }, [selectedClient]);
+
+  const topLoss = Object.entries(overview)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 4);
+
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
@@ -143,34 +170,15 @@ export default function Dashboard() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Pricing</span>
-                <span>34%</span>
+            {topLoss.map(([name, value]) => (
+              <div key={name} className="space-y-1">
+                <div className="flex justify-between text-sm">
+                  <span>{name.replace(/_/g, " ")}</span>
+                  <span>{value.toFixed(0)}%</span>
+                </div>
+                <Progress value={value} className="h-2" />
               </div>
-              <Progress value={34} className="h-2" />
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Feature Gaps</span>
-                <span>28%</span>
-              </div>
-              <Progress value={28} className="h-2" />
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Implementation Timeline</span>
-                <span>22%</span>
-              </div>
-              <Progress value={22} className="h-2" />
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Support Concerns</span>
-                <span>16%</span>
-              </div>
-              <Progress value={16} className="h-2" />
-            </div>
+            ))}
           </CardContent>
         </Card>
       </div>
